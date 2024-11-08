@@ -180,8 +180,8 @@ namespace Dragablz
             if (siblingItems == null) throw new ArgumentNullException("siblingItems");
             var currentLocations = siblingItems
                 .Select(GetLocationInfo)
-                .Union(new[] {GetLocationInfo(dragItem)})
-                .OrderBy(loc => loc.Item == dragItem ? loc.Start : _siblingItemLocationOnDragStart[loc.Item].Start);
+                .Union(new[] { GetLocationInfo(dragItem) })
+                .OrderBy(loc => loc.Item == dragItem ? loc.Start : _siblingItemLocationOnDragStart.TryGetValue(loc.Item, out var value) ? value.Start : loc.Start);
 
             var currentCoord = 0.0;
             var z = int.MaxValue;
