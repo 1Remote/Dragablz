@@ -16,12 +16,11 @@ namespace Dragablz.Core
             _removeMethod = removeMethod;
         }
 
-        public static bool TryCreate(object items, out CollectionTeaser collectionTeaser)
+        public static bool TryCreate(object? items, out CollectionTeaser? collectionTeaser)
         {
             collectionTeaser = null;
 
-            var list = items as IList;
-            if (list != null)
+            if (items is IList list)
             {
                 collectionTeaser = new CollectionTeaser(i => list.Add(i), list.Remove);                
             }
@@ -40,15 +39,16 @@ namespace Dragablz.Core
                 {
                     var genericArgType = collectionImplType.GetGenericArguments().First();
 
-                    var addMethodInfo = collectionImplType.GetMethod("Add", new[] {genericArgType});
+                    var addMethodInfo = collectionImplType.GetMethod("Add", new[] { genericArgType });
                     var removeMethodInfo = collectionImplType.GetMethod("Remove", new[] { genericArgType });
 
-                    collectionTeaser = new CollectionTeaser(
-                        i => addMethodInfo.Invoke(items, new[] {i}),
-                        i => removeMethodInfo.Invoke(items, new[] {i}));
+                    if (addMethodInfo != null && removeMethodInfo != null)
+                        collectionTeaser = new CollectionTeaser(
+                            i => addMethodInfo.Invoke(items, new[] { i }),
+                            i => removeMethodInfo.Invoke(items, new[] { i }));
                 }
             }
-            
+
             return collectionTeaser != null;
         }
 

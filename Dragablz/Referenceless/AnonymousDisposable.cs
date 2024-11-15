@@ -5,15 +5,9 @@ namespace Dragablz.Referenceless
 {
     internal sealed class AnonymousDisposable : ICancelable, IDisposable
     {
-        private volatile Action _dispose;
+        private volatile Action? _dispose;
 
-        public bool IsDisposed
-        {
-            get
-            {
-                return this._dispose == null;
-            }
-        }
+        public bool IsDisposed => this._dispose == null;
 
         public AnonymousDisposable(Action dispose)
         {
@@ -22,10 +16,8 @@ namespace Dragablz.Referenceless
 
         public void Dispose()
         {
-            var action = Interlocked.Exchange<Action>(ref _dispose, (Action)null);
-            if (action == null)
-                return;
-            action();
+            var action = Interlocked.Exchange<Action?>(ref _dispose, null);
+            action?.Invoke();
         }
     }
 }

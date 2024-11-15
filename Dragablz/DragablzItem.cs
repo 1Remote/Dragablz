@@ -32,10 +32,10 @@ namespace Dragablz
         private readonly SerialDisposable _templateSubscriptions = new SerialDisposable();
         private readonly SerialDisposable _rightMouseUpCleanUpDisposable = new SerialDisposable();
 
-        private Thumb _customThumb;
-        private Thumb _thumb;
+        private Thumb? _customThumb;
+        private Thumb? _thumb;
         private bool _seizeDragWithTemplate;
-        private Action<DragablzItem> _dragSeizedContinuation;
+        private Action<DragablzItem>? _dragSeizedContinuation;
 
         static DragablzItem()
         {
@@ -48,12 +48,12 @@ namespace Dragablz
         }
 
         public static readonly DependencyProperty XProperty = DependencyProperty.Register(
-            "X", typeof(double), typeof(DragablzItem), new PropertyMetadata(default(double), OnXChanged));
+            nameof(X), typeof(double), typeof(DragablzItem), new PropertyMetadata(default(double), OnXChanged));
 
         public double X
         {
-            get { return (double)GetValue(XProperty); }
-            set { SetValue(XProperty, value); }
+            get => (double)GetValue(XProperty);
+            set => SetValue(XProperty, value);
         }
 
         public static readonly RoutedEvent XChangedEvent =
@@ -65,8 +65,8 @@ namespace Dragablz
 
         public event RoutedPropertyChangedEventHandler<double> XChanged
         {
-            add { AddHandler(XChangedEvent, value); }
-            remove { RemoveHandler(IsDraggingChangedEvent, value); }
+            add => AddHandler(XChangedEvent, value);
+            remove => RemoveHandler(IsDraggingChangedEvent, value);
         }
 
         private static void OnXChanged(
@@ -83,12 +83,12 @@ namespace Dragablz
         }
 
         public static readonly DependencyProperty YProperty = DependencyProperty.Register(
-            "Y", typeof(double), typeof(DragablzItem), new PropertyMetadata(default(double), OnYChanged));
+            nameof(Y), typeof(double), typeof(DragablzItem), new PropertyMetadata(default(double), OnYChanged));
 
         public double Y
         {
-            get { return (double)GetValue(YProperty); }
-            set { SetValue(YProperty, value); }
+            get => (double)GetValue(YProperty);
+            set => SetValue(YProperty, value);
         }
 
         public static readonly RoutedEvent YChangedEvent =
@@ -100,8 +100,8 @@ namespace Dragablz
 
         public event RoutedPropertyChangedEventHandler<double> YChanged
         {
-            add { AddHandler(YChangedEvent, value); }
-            remove { RemoveHandler(IsDraggingChangedEvent, value); }
+            add => AddHandler(YChangedEvent, value);
+            remove => RemoveHandler(IsDraggingChangedEvent, value);
         }
 
         private static void OnYChanged(
@@ -127,8 +127,8 @@ namespace Dragablz
 
         public int LogicalIndex
         {
-            get { return (int)GetValue(LogicalIndexProperty); }
-            internal set { SetValue(LogicalIndexPropertyKey, value); }
+            get => (int)GetValue(LogicalIndexProperty);
+            internal set => SetValue(LogicalIndexPropertyKey, value);
         }
 
         public static readonly RoutedEvent LogicalIndexChangedEvent =
@@ -140,8 +140,8 @@ namespace Dragablz
 
         public event RoutedPropertyChangedEventHandler<int> LogicalIndexChanged
         {
-            add { AddHandler(LogicalIndexChangedEvent, value); }
-            remove { RemoveHandler(LogicalIndexChangedEvent, value); }
+            add => AddHandler(LogicalIndexChangedEvent, value);
+            remove => RemoveHandler(LogicalIndexChangedEvent, value);
         }
 
         private static void OnLogicalIndexChanged(
@@ -162,8 +162,7 @@ namespace Dragablz
 
         private static void SizeGripPropertyChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
-            var thumb = (dependencyObject as Thumb);
-            if (thumb == null) return;
+            if (dependencyObject is not Thumb thumb) return;
             thumb.DragDelta += SizeThumbOnDragDelta;
         }
 
@@ -262,17 +261,17 @@ namespace Dragablz
         }
 
         public static readonly DependencyProperty IsSelectedProperty = DependencyProperty.Register(
-            "IsSelected", typeof(bool), typeof(DragablzItem), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsParentMeasure));
+            nameof(IsSelected), typeof(bool), typeof(DragablzItem), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsParentMeasure));
 
         public bool IsSelected
         {
-            get { return (bool)GetValue(IsSelectedProperty); }
-            set { SetValue(IsSelectedProperty, value); }
+            get => (bool)GetValue(IsSelectedProperty);
+            set => SetValue(IsSelectedProperty, value);
         }
 
         private static readonly DependencyPropertyKey IsDraggingPropertyKey =
             DependencyProperty.RegisterReadOnly(
-                "IsDragging", typeof(bool), typeof(DragablzItem),
+                nameof(IsDragging), typeof(bool), typeof(DragablzItem),
                 new PropertyMetadata(default(bool), OnIsDraggingChanged));
 
         public static readonly DependencyProperty IsDraggingProperty =
@@ -280,24 +279,24 @@ namespace Dragablz
 
         public bool IsDragging
         {
-            get { return (bool)GetValue(IsDraggingProperty); }
-            internal set { SetValue(IsDraggingPropertyKey, value); }
+            get => (bool)GetValue(IsDraggingProperty);
+            internal set => SetValue(IsDraggingPropertyKey, value);
         }
 
         public static readonly RoutedEvent IsDraggingChangedEvent =
             EventManager.RegisterRoutedEvent(
-                "IsDraggingChanged",
+                nameof(IsDraggingChanged),
                 RoutingStrategy.Bubble,
                 typeof(RoutedPropertyChangedEventHandler<bool>),
                 typeof(DragablzItem));
 
         public event RoutedPropertyChangedEventHandler<bool> IsDraggingChanged
         {
-            add { AddHandler(IsDraggingChangedEvent, value); }
-            remove { RemoveHandler(IsDraggingChangedEvent, value); }
+            add => AddHandler(IsDraggingChangedEvent, value);
+            remove => RemoveHandler(IsDraggingChangedEvent, value);
         }
 
-        internal object UnderlyingContent { get; set; }
+        internal object? UnderlyingContent { get; set; }
 
         private static void OnIsDraggingChanged(
             DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -325,7 +324,7 @@ namespace Dragablz
 
         private static readonly DependencyPropertyKey IsSiblingDraggingPropertyKey =
             DependencyProperty.RegisterReadOnly(
-                "IsSiblingDragging", typeof(bool), typeof(DragablzItem),
+                nameof(IsSiblingDragging), typeof(bool), typeof(DragablzItem),
                 new PropertyMetadata(default(bool), OnIsSiblingDraggingChanged));
 
         public static readonly DependencyProperty IsSiblingDraggingProperty =
@@ -333,21 +332,21 @@ namespace Dragablz
 
         public bool IsSiblingDragging
         {
-            get { return (bool)GetValue(IsSiblingDraggingProperty); }
-            internal set { SetValue(IsSiblingDraggingPropertyKey, value); }
+            get => (bool)GetValue(IsSiblingDraggingProperty);
+            internal set => SetValue(IsSiblingDraggingPropertyKey, value);
         }
 
         public static readonly RoutedEvent IsSiblingDraggingChangedEvent =
             EventManager.RegisterRoutedEvent(
-                "IsSiblingDraggingChanged",
+                nameof(IsSiblingDraggingChanged),
                 RoutingStrategy.Bubble,
                 typeof(RoutedPropertyChangedEventHandler<bool>),
                 typeof(DragablzItem));
 
         public event RoutedPropertyChangedEventHandler<bool> IsSiblingDraggingChanged
         {
-            add { AddHandler(IsSiblingDraggingChangedEvent, value); }
-            remove { RemoveHandler(IsSiblingDraggingChangedEvent, value); }
+            add => AddHandler(IsSiblingDraggingChangedEvent, value);
+            remove => RemoveHandler(IsSiblingDraggingChangedEvent, value);
         }
 
         private static void OnIsSiblingDraggingChanged(
@@ -430,8 +429,7 @@ namespace Dragablz
 
         private static void IsCustomThumbPropertyChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
-            var thumb = dependencyObject as Thumb;
-            if (thumb == null) throw new ApplicationException("IsCustomThumb can only be applied to a thumb");
+            if (dependencyObject is not Thumb thumb) throw new ApplicationException("IsCustomThumb can only be applied to a thumb");
 
             if (thumb.IsLoaded)
                 ApplyCustomThumbSetting(thumb);
@@ -513,8 +511,7 @@ namespace Dragablz
         internal void InstigateDrag(Action<DragablzItem> continuation)
         {
             _dragSeizedContinuation = continuation;
-            var thumb = GetTemplateChild(ThumbPartName) as Thumb;
-            if (thumb != null)
+            if (GetTemplateChild(ThumbPartName) is Thumb thumb)
             {
                 thumb.CaptureMouse();
             }
@@ -526,7 +523,7 @@ namespace Dragablz
 
         private bool _onTheMove;
 
-        internal string PartitionAtDragStart { get; set; }
+        internal string? PartitionAtDragStart { get; set; }
 
         internal bool IsDropTargetFound { get; set; }
 
@@ -589,7 +586,7 @@ namespace Dragablz
             ApplyCustomThumbSetting(thumb);
         }
 
-        private Thumb FindCustomThumb()
+        private Thumb? FindCustomThumb()
         {
             return this.VisualTreeDepthFirstTraversal().OfType<Thumb>().FirstOrDefault(GetIsCustomThumb);
         }
@@ -610,7 +607,7 @@ namespace Dragablz
                 { RoutedEvent = MouseLeftButtonDownEvent })));
         }
 
-        private Tuple<Thumb, IDisposable> SelectAndSubscribeToThumb()
+        private Tuple<Thumb?, IDisposable> SelectAndSubscribeToThumb()
         {
             var templateThumb = GetTemplateChild(ThumbPartName) as Thumb;
             templateThumb?.SetCurrentValue(IsHitTestVisibleProperty, _customThumb == null);
@@ -632,7 +629,7 @@ namespace Dragablz
                 tidyUpThumb.DragCompleted -= ThumbOnDragCompleted;
             });
 
-            return new Tuple<Thumb, IDisposable>(_thumb, disposable);
+            return new Tuple<Thumb?, IDisposable>(_thumb, disposable);
         }
     }
 }

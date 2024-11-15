@@ -21,7 +21,7 @@ namespace Dragablz
             _storyboard.Completed += StoryboardOnCompleted;
         }
 
-        private void StoryboardOnCompleted(object sender, EventArgs eventArgs)
+        private void StoryboardOnCompleted(object? sender, EventArgs eventArgs)
         {
             _storyboard.Completed -= StoryboardOnCompleted;
             _continuation(_storyboard);

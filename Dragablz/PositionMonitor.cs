@@ -16,14 +16,12 @@ namespace Dragablz
         /// <summary>
         /// Raised when the X,Y coordinate of a <see cref="DragablzItem"/> changes.
         /// </summary>
-        public event EventHandler<LocationChangedEventArgs> LocationChanged;
+        public event EventHandler<LocationChangedEventArgs>? LocationChanged;
 
         internal virtual void OnLocationChanged(LocationChangedEventArgs e)
         {
             if (e == null) throw new ArgumentNullException("e");
-
-            var handler = LocationChanged;
-            handler?.Invoke(this, e);
+            LocationChanged?.Invoke(this, e);
         }
 
         internal virtual void ItemsChanged() { }

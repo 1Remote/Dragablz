@@ -92,7 +92,7 @@ namespace Dragablz.Dockablz
             SecondContentPresenter = GetTemplateChild(SecondContentPresenterPartName) as ContentPresenter;
         }
 
-        internal ContentPresenter FirstContentPresenter { get; private set; }
-        internal ContentPresenter SecondContentPresenter { get; private set; }
+        internal ContentPresenter? FirstContentPresenter { get; private set; }
+        internal ContentPresenter? SecondContentPresenter { get; private set; }
     }
 }

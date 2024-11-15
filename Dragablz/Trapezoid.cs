@@ -12,7 +12,7 @@ namespace Dragablz
 {
     public class Trapezoid : ContentControl
     {
-        private PathGeometry _pathGeometry;
+        private PathGeometry? _pathGeometry;
 
         static Trapezoid()
         {
@@ -130,9 +130,8 @@ namespace Dragablz
         protected override void OnRender(DrawingContext drawingContext)
         {
             base.OnRender(drawingContext);                        
-            drawingContext.DrawGeometry(Background, CreatePen(), _pathGeometry);
-
             if (_pathGeometry == null) return;
+            drawingContext.DrawGeometry(Background, CreatePen(), _pathGeometry);
             drawingContext.DrawGeometry(Background, new Pen(LongBasePenBrush, PenThickness)
             {
                 EndLineCap = PenLineCap.Flat,

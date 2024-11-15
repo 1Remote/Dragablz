@@ -16,7 +16,7 @@ namespace Dragablz
     /// </summary>
     public class DragablzItemsControl : ItemsControl
     {        
-        private object[] _previousSortQueryResult;
+        private object[]? _previousSortQueryResult;
 
         static DragablzItemsControl()
         {
@@ -70,21 +70,21 @@ namespace Dragablz
         }        
 
         public static readonly DependencyProperty ItemsOrganiserProperty = DependencyProperty.Register(
-            "ItemsOrganiser", typeof (IItemsOrganiser), typeof (DragablzItemsControl), new PropertyMetadata(default(IItemsOrganiser)));
+            nameof(ItemsOrganiser), typeof (IItemsOrganiser), typeof (DragablzItemsControl), new PropertyMetadata(default(IItemsOrganiser)));
 
-        public IItemsOrganiser ItemsOrganiser
+        public IItemsOrganiser? ItemsOrganiser
         {
-            get { return (IItemsOrganiser) GetValue(ItemsOrganiserProperty); }
-            set { SetValue(ItemsOrganiserProperty, value); }
+            get => GetValue(ItemsOrganiserProperty) as IItemsOrganiser;
+            set => SetValue(ItemsOrganiserProperty, value);
         }
 
         public static readonly DependencyProperty PositionMonitorProperty = DependencyProperty.Register(
-            "PositionMonitor", typeof (PositionMonitor), typeof (DragablzItemsControl), new PropertyMetadata(default(PositionMonitor)));
+            nameof(PositionMonitor), typeof (PositionMonitor), typeof (DragablzItemsControl), new PropertyMetadata(default(PositionMonitor)));
 
-        public PositionMonitor PositionMonitor
+        public PositionMonitor? PositionMonitor
         {
-            get { return (PositionMonitor) GetValue(PositionMonitorProperty); }
-            set { SetValue(PositionMonitorProperty, value); }
+            get => GetValue(PositionMonitorProperty) as PositionMonitor;
+            set => SetValue(PositionMonitorProperty, value);
         }
 
         private static readonly DependencyPropertyKey ItemsPresenterWidthPropertyKey =
@@ -131,19 +131,18 @@ namespace Dragablz
         /// <param name="item"></param>
         /// <param name="nearItem"></param>
         /// <param name="addLocationHint"></param>
-        public void AddToSource(object item, object nearItem, AddLocationHint addLocationHint)
+        public void AddToSource(object item, object? nearItem, AddLocationHint addLocationHint)
         {
-            CollectionTeaser collectionTeaser;
-            if (CollectionTeaser.TryCreate(ItemsSource, out collectionTeaser))
-                collectionTeaser.Add(item);
+            if (CollectionTeaser.TryCreate(ItemsSource, out var collectionTeaser))
+                collectionTeaser?.Add(item);
             else
                 Items.Add(item);
             MoveItem(new MoveItemRequest(item, nearItem, addLocationHint));
         }
 
-        internal ContainerCustomisations ContainerCustomisations { get; set; }
+        internal ContainerCustomisations? ContainerCustomisations { get; set; }
 
-        private void ItemContainerGeneratorOnStatusChanged(object sender, EventArgs eventArgs)
+        private void ItemContainerGeneratorOnStatusChanged(object? sender, EventArgs eventArgs)
         {            
             if (ItemContainerGenerator.Status != GeneratorStatus.ContainersGenerated) return;
 
@@ -153,16 +152,15 @@ namespace Dragablz
         }
 
         protected override bool IsItemItsOwnContainerOverride(object item)
-        {            
-            var dragablzItem = item as DragablzItem;
-            if (dragablzItem == null) return false;
+        {
+            if (item is not DragablzItem dragablzItem) return false;
             
             return true;
         }
 
         protected override DependencyObject GetContainerForItemOverride()
         {
-            var result = ContainerCustomisations != null && ContainerCustomisations.GetContainerForItemOverride != null
+            var result = ContainerCustomisations is { GetContainerForItemOverride: not null }
                 ? ContainerCustomisations.GetContainerForItemOverride()
                 : new DragablzItem();
 
@@ -173,7 +171,7 @@ namespace Dragablz
 
         protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
         {
-            if (ContainerCustomisations != null && ContainerCustomisations.PrepareContainerForItemOverride != null)
+            if (ContainerCustomisations is { PrepareContainerForItemOverride: not null })
                 ContainerCustomisations.PrepareContainerForItemOverride(element, item);
 
             base.PrepareContainerForItemOverride(element, item);
@@ -376,7 +374,7 @@ namespace Dragablz
 
             var sortedItems = linearPositionMonitor.Sort(this.Containers<DragablzItem>()).Select(di => di.Content).ToArray();
             if (_previousSortQueryResult == null || !_previousSortQueryResult.SequenceEqual(sortedItems))
-                linearPositionMonitor.OnOrderChanged(new OrderChangedEventArgs(_previousSortQueryResult, sortedItems));
+                linearPositionMonitor.OnOrderChanged(new OrderChangedEventArgs(_previousSortQueryResult ?? Array.Empty<object>(), sortedItems));
 
             _previousSortQueryResult = sortedItems;
         }

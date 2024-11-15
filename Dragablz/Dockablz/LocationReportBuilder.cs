@@ -5,19 +5,16 @@ namespace Dragablz.Dockablz
     internal class LocationReportBuilder
     {
         private readonly TabablzControl _targetTabablzControl;
-        private Branch _branch;
+        private Branch? _branch;
         private bool _isSecondLeaf;
-        private Layout _layout;
+        private Layout? _layout;
 
         public LocationReportBuilder(TabablzControl targetTabablzControl)
         {
             _targetTabablzControl = targetTabablzControl;
         }
 
-        public TabablzControl TargetTabablzControl
-        {
-            get { return _targetTabablzControl; }
-        }
+        public TabablzControl TargetTabablzControl => _targetTabablzControl;
 
         public bool IsFound { get; private set; }
 
@@ -44,11 +41,11 @@ namespace Dragablz.Dockablz
             _isSecondLeaf = isSecondLeaf;
         }
 
-        public Layout CurrentLayout { get; set; }
+        public Layout? CurrentLayout { get; set; }
 
         public LocationReport ToLocationReport()
         {
-            return new LocationReport(_targetTabablzControl, _layout, _branch, _isSecondLeaf);
+            return new LocationReport(_targetTabablzControl, _layout!, _branch, _isSecondLeaf);
         }
     }
 }

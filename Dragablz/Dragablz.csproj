@@ -14,7 +14,8 @@
 		<RepositoryUrl>https://github.com/ButchersBoy/Dragablz</RepositoryUrl>
 		<PackageTags>WPF TabControl Tab Tearable</PackageTags>
 		<PackageReleaseNotes>Support for .NET 8</PackageReleaseNotes>
-		<RepositoryType>git</RepositoryType>		
+		<RepositoryType>git</RepositoryType>
+		<Nullable>enable</Nullable>		
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

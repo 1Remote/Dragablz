@@ -11,7 +11,7 @@ namespace Dragablz
     /// </summary>
     public abstract class StackPositionMonitor : PositionMonitor
     {
-        private readonly Func<DragablzItem, double> _getLocation;
+        private readonly Func<DragablzItem, double>? _getLocation;
 
         protected StackPositionMonitor(Orientation orientation)
         {
@@ -28,7 +28,7 @@ namespace Dragablz
             }
         }
 
-        public event EventHandler<OrderChangedEventArgs> OrderChanged;
+        public event EventHandler<OrderChangedEventArgs>? OrderChanged;
 
         internal virtual void OnOrderChanged(OrderChangedEventArgs e)
         {
@@ -39,6 +39,7 @@ namespace Dragablz
         internal IEnumerable<DragablzItem> Sort(IEnumerable<DragablzItem> items)
         {
             if (items == null) throw new ArgumentNullException("items");
+            if (_getLocation == null) throw new InvalidOperationException("Orientation not set.");
 
             return items.OrderBy(i => _getLocation(i));
         }

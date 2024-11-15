@@ -30,9 +30,9 @@ namespace Dragablz.Dockablz
         public static LayoutAccessor Visit<TContext>(
             this LayoutAccessor layoutAccessor,
             TContext context,
-            Action<TContext, BranchAccessor> branchVisitor = null,
-            Action<TContext, TabablzControl> tabablzControlVisitor = null,
-            Action<TContext, object> contentVisitor = null)
+            Action<TContext, BranchAccessor>? branchVisitor = null,
+            Action<TContext, TabablzControl>? tabablzControlVisitor = null,
+            Action<TContext, object>? contentVisitor = null)
         {
             if (layoutAccessor == null) throw new ArgumentNullException("layoutAccessor");
 
@@ -60,9 +60,9 @@ namespace Dragablz.Dockablz
             this BranchAccessor branchAccessor,
             TContext context,
             BranchItem childItem,
-            Action<TContext, BranchAccessor> branchVisitor = null,
-            Action<TContext, TabablzControl> tabablzControlVisitor = null,
-            Action<TContext, object> contentVisitor = null)
+            Action<TContext, BranchAccessor>? branchVisitor = null,
+            Action<TContext, TabablzControl>? tabablzControlVisitor = null,
+            Action<TContext, object>? contentVisitor = null)
         {
             if (branchAccessor == null) throw new ArgumentNullException("branchAccessor");
 
@@ -76,7 +76,7 @@ namespace Dragablz.Dockablz
             return branchAccessor;
         }
 
-        private static Action<TVisitArg> WrapVisitor<TContext, TVisitArg>(TContext context, Action<TContext, TVisitArg> visitor)
+        private static Action<TVisitArg>? WrapVisitor<TContext, TVisitArg>(TContext context, Action<TContext, TVisitArg>? visitor)
         {
             if (visitor == null) return null;
 

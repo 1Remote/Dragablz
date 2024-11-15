@@ -166,9 +166,9 @@ namespace Dragablz
         {
             get
             {
-                var value = typeof (Window).GetProperty("CriticalHandle", BindingFlags.NonPublic | BindingFlags.Instance)
-                    .GetValue(this, new object[0]);
-                return (IntPtr) value;
+                var value = typeof (Window).GetProperty("CriticalHandle", BindingFlags.NonPublic | BindingFlags.Instance)!
+                    .GetValue(this, Array.Empty<object>());
+                return (IntPtr) (value ?? IntPtr.Zero);
             }
         }
 

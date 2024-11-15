@@ -84,14 +84,11 @@ namespace Dragablz
 
         #endregion
 
-        public virtual Orientation Orientation
-        {
-            get { return _orientation; }
-        }
+        public virtual Orientation Orientation => _orientation;
 
         public virtual void Organise(DragablzItemsControl requestor, Size measureBounds, IEnumerable<DragablzItem> items)
         {
-            if (items == null) throw new ArgumentNullException("items");
+            if (items == null) throw new ArgumentNullException(nameof(items));
 
             OrganiseInternal(
                 requestor, 
@@ -105,7 +102,7 @@ namespace Dragablz
 
         public virtual void Organise(DragablzItemsControl requestor, Size measureBounds, IOrderedEnumerable<DragablzItem> items)
         {
-            if (items == null) throw new ArgumentNullException("items");
+            if (items == null) throw new ArgumentNullException(nameof(items));
 
             OrganiseInternal(
                 requestor,
@@ -138,7 +135,7 @@ namespace Dragablz
 
         }
 
-        private IDictionary<DragablzItem, LocationInfo> _siblingItemLocationOnDragStart;
+        private IDictionary<DragablzItem, LocationInfo> _siblingItemLocationOnDragStart = new Dictionary<DragablzItem, LocationInfo>();
 
         public virtual void OrganiseOnDragStarted(DragablzItemsControl requestor, Size measureBounds,
             IEnumerable<DragablzItem> siblingItems, DragablzItem dragItem)
@@ -157,8 +154,9 @@ namespace Dragablz
 
             var currentLocations = siblingItems
                 .Select(GetLocationInfo)
-                .Union(new[] {GetLocationInfo(dragItem)})
-                .OrderBy(loc => loc.Item == dragItem ? loc.Start : _siblingItemLocationOnDragStart[loc.Item].Start);
+                .Union(new[] { GetLocationInfo(dragItem) })
+                .OrderBy(loc => loc.Item == dragItem ? loc.Start :
+                    _siblingItemLocationOnDragStart.TryGetValue(loc.Item, out var value) ? value.Start : 0);
 
             var currentCoord = 0.0;
             var zIndex = int.MaxValue;

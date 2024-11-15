@@ -9,7 +9,7 @@ namespace Dragablz.Referenceless
     internal sealed class SerialDisposable : ICancelable, IDisposable
     {
         private readonly object _gate = new object();
-        private IDisposable _current;
+        private IDisposable? _current;
         private bool _disposed;
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace Dragablz.Referenceless
         /// <remarks>
         /// If the SerialDisposable has already been disposed, assignment to this property causes immediate disposal of the given disposable object. Assigning this property disposes the previous disposable object.
         /// </remarks>
-        public IDisposable Disposable
+        public IDisposable? Disposable
         {
             get
             {
@@ -42,7 +42,7 @@ namespace Dragablz.Referenceless
             set
             {
                 bool flag = false;
-                IDisposable disposable = (IDisposable)null;
+                IDisposable? disposable = null;
                 lock (this._gate)
                 {
                     flag = this._disposed;
@@ -66,14 +66,14 @@ namespace Dragablz.Referenceless
         /// </summary>
         public void Dispose()
         {
-            IDisposable disposable = (IDisposable)null;
+            IDisposable? disposable = null;
             lock (this._gate)
             {
                 if (!this._disposed)
                 {
                     this._disposed = true;
                     disposable = this._current;
-                    this._current = (IDisposable)null;
+                    this._current = null;
                 }
             }
             if (disposable == null)
