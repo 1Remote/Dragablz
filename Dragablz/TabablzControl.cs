@@ -835,15 +835,18 @@ namespace Dragablz
 
                     if ((e.KeyboardDevice.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
                     {
-                        var selectedDragablzItem = (DragablzItem)_dragablzItemsControl.ItemContainerGenerator.ContainerFromItem(SelectedItem);
-                        var selectedDragablzItemIndex = sortedDragablzItems.IndexOf(selectedDragablzItem);
-                        var direction = ((e.KeyboardDevice.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)
-                            ? -1 : 1;
-                        var newIndex = selectedDragablzItemIndex + direction;
-                        if (newIndex < 0) newIndex = sortedDragablzItems.Count - 1;
-                        else if (newIndex == sortedDragablzItems.Count) newIndex = 0;
+                        var selectedDragablzItem = _dragablzItemsControl.ItemContainerGenerator.ContainerFromItem(SelectedItem) as DragablzItem;
+                        if (selectedDragablzItem != null)
+                        {
+                            var selectedDragablzItemIndex = sortedDragablzItems.IndexOf(selectedDragablzItem);
+                            var direction = ((e.KeyboardDevice.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)
+                                ? -1 : 1;
+                            var newIndex = selectedDragablzItemIndex + direction;
+                            if (newIndex < 0) newIndex = sortedDragablzItems.Count - 1;
+                            else if (newIndex == sortedDragablzItems.Count) newIndex = 0;
 
-                        selectDragablzItem = sortedDragablzItems[newIndex];
+                            selectDragablzItem = sortedDragablzItems[newIndex];
+                        }
                     }
                     break;
                 case Key.Home:

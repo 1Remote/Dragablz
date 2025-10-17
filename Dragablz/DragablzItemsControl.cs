@@ -205,7 +205,9 @@ namespace Dragablz
 
         internal void InstigateDrag(object item, Action<DragablzItem> continuation)
         {   
-            var dragablzItem = (DragablzItem)ItemContainerGenerator.ContainerFromItem(item);            
+            var dragablzItem = ItemContainerGenerator.ContainerFromItem(item) as DragablzItem;
+            if (dragablzItem == null)
+                return;
             dragablzItem.InstigateDrag(continuation);            
         }
 
