@@ -66,7 +66,7 @@ namespace Dragablz
         public event RoutedPropertyChangedEventHandler<double> XChanged
         {
             add => AddHandler(XChangedEvent, value);
-            remove => RemoveHandler(IsDraggingChangedEvent, value);
+            remove => RemoveHandler(XChangedEvent, value);
         }
 
         private static void OnXChanged(
@@ -101,7 +101,7 @@ namespace Dragablz
         public event RoutedPropertyChangedEventHandler<double> YChanged
         {
             add => AddHandler(YChangedEvent, value);
-            remove => RemoveHandler(IsDraggingChangedEvent, value);
+            remove => RemoveHandler(YChangedEvent, value);
         }
 
         private static void OnYChanged(

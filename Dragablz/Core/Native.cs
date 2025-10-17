@@ -36,14 +36,22 @@ namespace Dragablz.Core
         public static POINT GetRawCursorPos()
         {
             POINT lpPoint;
-            GetCursorPos(out lpPoint);
+            if (!GetCursorPos(out lpPoint))
+            {
+                // Return default point if GetCursorPos fails
+                return new POINT { X = 0, Y = 0 };
+            }
             return lpPoint;
         }
 
         public static Point GetCursorPos()
         {
             POINT lpPoint;
-            GetCursorPos(out lpPoint);
+            if (!GetCursorPos(out lpPoint))
+            {
+                // Return default point if GetCursorPos fails
+                return new Point(0, 0);
+            }
             return lpPoint;
         }
 
