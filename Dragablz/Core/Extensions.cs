@@ -17,7 +17,11 @@ namespace Dragablz.Core
         {
 #if NET40
             var fieldInfo = typeof(ItemContainerGenerator).GetField("_items", BindingFlags.NonPublic | BindingFlags.Instance);
-            var list = (IList)fieldInfo.GetValue(itemsControl.ItemContainerGenerator);            
+            if (fieldInfo == null)
+                yield break;
+            var list = (IList)fieldInfo.GetValue(itemsControl.ItemContainerGenerator);
+            if (list == null)
+                yield break;
             for (var i = 0; i < list.Count; i++)
 #else
             for (var i = 0; i < itemsControl.ItemContainerGenerator.Items.Count; i++)

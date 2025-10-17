@@ -70,6 +70,10 @@ namespace Dragablz.Core
             var dpi = GetDeviceCaps(desktop, 88);
             ReleaseDC(IntPtr.Zero, desktop);
 
+            // Protect against division by zero, use standard 96 DPI as fallback
+            if (dpi == 0)
+                dpi = 96;
+
             var physicalUnitSize = 96d / dpi ;
             var wpfPoint = new Point(physicalUnitSize * pixelPoint.X, physicalUnitSize * pixelPoint.Y);
 

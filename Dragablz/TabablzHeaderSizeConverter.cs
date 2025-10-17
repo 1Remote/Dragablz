@@ -31,11 +31,15 @@ namespace Dragablz
 
             if (values.Length < 2) return Binding.DoNothing;
 
+            var firstDouble = values.OfType<double>().FirstOrDefault();
+            if (firstDouble == 0 && !values.OfType<double>().Any())
+                return Binding.DoNothing;
+
             var val = values
                 .Skip(2)
                 .OfType<double>()
                 .Where(d => !double.IsInfinity(d) && !double.IsNaN(d))
-                .Aggregate(values.OfType<double>().First(), (current, diminish) => current - diminish);
+                .Aggregate(firstDouble, (current, diminish) => current - diminish);
 
             var maxWidth = values.Take(2).OfType<double>().Min();
 
