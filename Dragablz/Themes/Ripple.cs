@@ -67,7 +67,13 @@ namespace Dragablz.Themes
 
         private static void MouseMouveEventHandler(object sender, MouseEventArgs e)
         {
-            foreach (var ripple in PressedInstances.ToList())
+            // Iterate backwards to allow safe removal during iteration
+            var items = PressedInstances;
+            if (items.Count == 0) return;
+            
+            // Use a temporary list only when needed
+            List<Ripple>? toRemove = null;
+            foreach (var ripple in items)
             {
                 var relativePosition = Mouse.GetPosition(ripple);
                 if (relativePosition.X < 0
@@ -77,8 +83,15 @@ namespace Dragablz.Themes
 
                 {
                     VisualStateManager.GoToState(ripple, TemplateStateMouseOut, true);
-                    PressedInstances.Remove(ripple);
+                    toRemove ??= new List<Ripple>();
+                    toRemove.Add(ripple);
                 }
+            }
+            
+            if (toRemove != null)
+            {
+                foreach (var ripple in toRemove)
+                    items.Remove(ripple);
             }
         }
 

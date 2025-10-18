@@ -15,7 +15,7 @@ namespace Dragablz
             if (sourceWindow == null) throw new ApplicationException("Unable to ascertain source window.");
             var newWindow = (Window)Activator.CreateInstance(sourceWindow.GetType())!;
 
-            newWindow.Dispatcher.Invoke(new Action(() => { }), DispatcherPriority.DataBind);
+            newWindow.Dispatcher.Invoke(() => { }, DispatcherPriority.DataBind);
 
             var newTabablzControl = newWindow.LogicalTreeDepthFirstTraversal().OfType<TabablzControl>().FirstOrDefault();
             if (newTabablzControl == null) throw new ApplicationException("Unable to ascertain tab control.");

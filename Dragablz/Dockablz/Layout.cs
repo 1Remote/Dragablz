@@ -102,7 +102,7 @@ namespace Dragablz.Dockablz
         /// <returns></returns>
         public static IEnumerable<Layout> GetLoadedInstances()
         {
-            return LoadedLayouts.ToList();
+            return LoadedLayouts;
         }
 
         /// <summary>
@@ -185,11 +185,11 @@ namespace Dragablz.Dockablz
             var selectedItem = tabablzControl.SelectedItem;
             var branchResult = Branch(orientation, firstItemProportion, makeCurrentSecond, locationReport.RootLayout.BranchTemplate, newSiblingTabablzControl, existingContent, applier);
             tabablzControl.SelectedItem = selectedItem;
-            tabablzControl.Dispatcher.BeginInvoke(new Action(() =>
+            tabablzControl.Dispatcher.BeginInvoke(() =>
             {
                 tabablzControl.SetCurrentValue(Selector.SelectedItemProperty, selectedItem);
                 MarkTopLeftItem(locationReport.RootLayout);
-            }),
+            },
                 DispatcherPriority.Loaded);
 
             return branchResult;
@@ -543,7 +543,7 @@ namespace Dragablz.Dockablz
                 newTabHost.TabablzControl.SelectedItem = sourceItem;
                 newContent = newTabHost.Container;
 
-                Dispatcher.BeginInvoke(new Action(() => RestoreFloatingItemSnapShots(newTabHost.TabablzControl, floatingItemSnapShots)), DispatcherPriority.Loaded);
+                Dispatcher.BeginInvoke(() => RestoreFloatingItemSnapShots(newTabHost.TabablzControl, floatingItemSnapShots), DispatcherPriority.Loaded);
             }
             else
             {
@@ -552,7 +552,7 @@ namespace Dragablz.Dockablz
                     Content = new object(),
                     ContentTemplate = BranchTemplate,
                 };
-                ((ContentControl)newContent).Dispatcher.BeginInvoke(new Action(() =>
+                ((ContentControl)newContent).Dispatcher.BeginInvoke(() =>
                 {
                     //TODO might need to improve this a bit, make it a bit more declarative for complex trees
                     var newTabControl = ((ContentControl)newContent).VisualTreeDepthFirstTraversal().OfType<TabablzControl>().FirstOrDefault();
@@ -561,8 +561,8 @@ namespace Dragablz.Dockablz
                     newTabControl.DataContext = sourceTabControl.DataContext;
                     newTabControl.AddToSource(sourceItem);
                     newTabControl.SelectedItem = sourceItem;
-                    Dispatcher.BeginInvoke(new Action(() => RestoreFloatingItemSnapShots(newTabControl, floatingItemSnapShots)), DispatcherPriority.Loaded);
-                }), DispatcherPriority.Loaded);
+                    Dispatcher.BeginInvoke(() => RestoreFloatingItemSnapShots(newTabControl, floatingItemSnapShots), DispatcherPriority.Loaded);
+                }, DispatcherPriority.Loaded);
             }
 
             if (location == DropZoneLocation.Right || location == DropZoneLocation.Bottom)
@@ -578,7 +578,7 @@ namespace Dragablz.Dockablz
 
             SetCurrentValue(ContentProperty, branchItem);
 
-            Dispatcher.BeginInvoke(new Action(() => MarkTopLeftItem(this)), DispatcherPriority.Loaded);
+            Dispatcher.BeginInvoke(() => MarkTopLeftItem(this), DispatcherPriority.Loaded);
         }
 
         internal static bool ConsolidateBranch(DependencyObject redundantNode)
@@ -665,12 +665,12 @@ namespace Dragablz.Dockablz
 
             applier(branchItem);
 
-            newContent.Dispatcher.Invoke(new Action(() => { }), DispatcherPriority.Loaded);
+            newContent.Dispatcher.Invoke(() => { }, DispatcherPriority.Loaded);
             var newTabablzControl = newContent.VisualTreeDepthFirstTraversal().OfType<TabablzControl>().FirstOrDefault();
             if (newTabablzControl != null) return new BranchResult(branchItem, newTabablzControl);
 
             //let#s be kinf and give WPF an extra change to gen the controls
-            newContent.Dispatcher.Invoke(new Action(() => { }), DispatcherPriority.Background);
+            newContent.Dispatcher.Invoke(() => { }, DispatcherPriority.Background);
             newTabablzControl = newContent.VisualTreeDepthFirstTraversal().OfType<TabablzControl>().FirstOrDefault();
 
             if (newTabablzControl == null)
@@ -723,7 +723,7 @@ namespace Dragablz.Dockablz
             else
                 layout.FloatingItems.Add(layout._floatTransfer.Content);
 
-            layout.Dispatcher.BeginInvoke(new Action(() => RestoreFloatingItemSnapShots(layout, floatingItemSnapShots)), DispatcherPriority.Loaded);
+            layout.Dispatcher.BeginInvoke(() => RestoreFloatingItemSnapShots(layout, floatingItemSnapShots), DispatcherPriority.Loaded);
         }
 
         private static void PreviewItemDragDelta(object sender, DragablzDragDeltaEventArgs e)
@@ -764,7 +764,7 @@ namespace Dragablz.Dockablz
 
             var dragablzItem = (DragablzItem)dependencyObject;
 
-            Dispatcher.BeginInvoke(new Action(() =>
+            Dispatcher.BeginInvoke(() =>
             {
                 //TODO might be nice to allow user a bit of control over sizing...especially the .75 thing i have handily hard coded.  shoot me.
                 dragablzItem.Measure(new Size(_floatingItems.ActualWidth, _floatingItems.ActualHeight));
@@ -981,7 +981,7 @@ namespace Dragablz.Dockablz
             newTabHost.Container.Left = myWindow.Left + 20;
             newTabHost.Container.Top = myWindow.Top + 20;
 
-            Dispatcher.BeginInvoke(new Action(() =>
+            Dispatcher.BeginInvoke(() =>
             {
                 newTabHost.TabablzControl.AddToSource(content);
                 newTabHost.TabablzControl.SelectedItem = content;
@@ -989,8 +989,8 @@ namespace Dragablz.Dockablz
                 newTabHost.Container.Activate();
 
                 Dispatcher.BeginInvoke(
-                    new Action(() => RestoreFloatingItemSnapShots(newTabHost.TabablzControl, floatingItemSnapShots)));
-            }), DispatcherPriority.DataBind);
+                    () => RestoreFloatingItemSnapShots(newTabHost.TabablzControl, floatingItemSnapShots));
+            }, DispatcherPriority.DataBind);
         }
     }
 }

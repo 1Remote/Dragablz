@@ -481,10 +481,10 @@ namespace Dragablz
                     _dragSeizedContinuation(this);
                 _dragSeizedContinuation = null;
 
-                Dispatcher.BeginInvoke(new Action(() => thumbAndSubscription.Item1.RaiseEvent(new MouseButtonEventArgs(InputManager.Current.PrimaryMouseDevice,
+                Dispatcher.BeginInvoke(() => thumbAndSubscription.Item1.RaiseEvent(new MouseButtonEventArgs(InputManager.Current.PrimaryMouseDevice,
                     0,
                     MouseButton.Left)
-                { RoutedEvent = MouseLeftButtonDownEvent })));
+                { RoutedEvent = MouseLeftButtonDownEvent }));
             }
             _seizeDragWithTemplate = false;
         }
@@ -612,10 +612,10 @@ namespace Dragablz
             dragablzItem._templateSubscriptions.Disposable = dragablzItem.SelectAndSubscribeToThumb().Item2;
 
             if (dragablzItem._customThumb != null && dragablzItem._isTemplateThumbWithMouseAfterSeize)
-                dragablzItem.Dispatcher.BeginInvoke(new Action(() => dragablzItem._customThumb.RaiseEvent(new MouseButtonEventArgs(InputManager.Current.PrimaryMouseDevice,
+                dragablzItem.Dispatcher.BeginInvoke(() => dragablzItem._customThumb.RaiseEvent(new MouseButtonEventArgs(InputManager.Current.PrimaryMouseDevice,
                         0,
                         MouseButton.Left)
-                { RoutedEvent = MouseLeftButtonDownEvent })));
+                { RoutedEvent = MouseLeftButtonDownEvent }));
         }
 
         private Tuple<Thumb?, IDisposable> SelectAndSubscribeToThumb()
