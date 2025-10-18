@@ -36,14 +36,22 @@ namespace Dragablz.Core
         public static POINT GetRawCursorPos()
         {
             POINT lpPoint;
-            GetCursorPos(out lpPoint);
+            if (!GetCursorPos(out lpPoint))
+            {
+                // Return default point if GetCursorPos fails
+                return new POINT { X = 0, Y = 0 };
+            }
             return lpPoint;
         }
 
         public static Point GetCursorPos()
         {
             POINT lpPoint;
-            GetCursorPos(out lpPoint);
+            if (!GetCursorPos(out lpPoint))
+            {
+                // Return default point if GetCursorPos fails
+                return new Point(0, 0);
+            }
             return lpPoint;
         }
 
@@ -61,6 +69,10 @@ namespace Dragablz.Core
             var desktop = GetDC(IntPtr.Zero); 
             var dpi = GetDeviceCaps(desktop, 88);
             ReleaseDC(IntPtr.Zero, desktop);
+
+            // Protect against division by zero, use standard 96 DPI as fallback
+            if (dpi == 0)
+                dpi = 96;
 
             var physicalUnitSize = 96d / dpi ;
             var wpfPoint = new Point(physicalUnitSize * pixelPoint.X, physicalUnitSize * pixelPoint.Y);

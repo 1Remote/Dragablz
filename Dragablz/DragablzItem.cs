@@ -66,7 +66,7 @@ namespace Dragablz
         public event RoutedPropertyChangedEventHandler<double> XChanged
         {
             add => AddHandler(XChangedEvent, value);
-            remove => RemoveHandler(IsDraggingChangedEvent, value);
+            remove => RemoveHandler(XChangedEvent, value);
         }
 
         private static void OnXChanged(
@@ -101,7 +101,7 @@ namespace Dragablz
         public event RoutedPropertyChangedEventHandler<double> YChanged
         {
             add => AddHandler(YChangedEvent, value);
-            remove => RemoveHandler(IsDraggingChangedEvent, value);
+            remove => RemoveHandler(YChangedEvent, value);
         }
 
         private static void OnYChanged(
@@ -163,7 +163,18 @@ namespace Dragablz
         private static void SizeGripPropertyChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
             if (dependencyObject is not Thumb thumb) return;
-            thumb.DragDelta += SizeThumbOnDragDelta;
+            
+            // Unsubscribe from old value if it was also a Thumb
+            if (dependencyPropertyChangedEventArgs.OldValue is SizeGrip oldGrip && oldGrip != SizeGrip.NotApplicable)
+            {
+                thumb.DragDelta -= SizeThumbOnDragDelta;
+            }
+            
+            // Subscribe to new value
+            if (dependencyPropertyChangedEventArgs.NewValue is SizeGrip newGrip && newGrip != SizeGrip.NotApplicable)
+            {
+                thumb.DragDelta += SizeThumbOnDragDelta;
+            }
         }
 
         private static void SizeThumbOnDragDelta(object sender, DragDeltaEventArgs dragDeltaEventArgs)
