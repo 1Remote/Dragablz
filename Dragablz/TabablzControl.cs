@@ -90,7 +90,12 @@ namespace Dragablz
         /// <returns></returns>
         public static IEnumerable<TabablzControl> GetLoadedInstances()
         {
-            return LoadedInstances.Union(VisibleInstances).Distinct().ToList();
+            // Avoid creating new list, return a cached enumerable
+            if (LoadedInstances.Count == 0)
+                return VisibleInstances;
+            if (VisibleInstances.Count == 0)
+                return LoadedInstances;
+            return LoadedInstances.Union(VisibleInstances);
         }
 
         /// <summary>
@@ -1382,7 +1387,7 @@ namespace Dragablz
             AddToSource(interTabTransfer.Item);
             SelectedItem = interTabTransfer.Item;
 
-            Dispatcher.BeginInvoke(new Action(() => Layout.RestoreFloatingItemSnapShots(this, interTabTransfer.FloatingItemSnapShots)), DispatcherPriority.Loaded);
+            Dispatcher.BeginInvoke(() => Layout.RestoreFloatingItemSnapShots(this, interTabTransfer.FloatingItemSnapShots), DispatcherPriority.Loaded);
             _dragablzItemsControl.InstigateDrag(interTabTransfer.Item, newContainer =>
             {
                 newContainer.PartitionAtDragStart = interTabTransfer.OriginatorContainer.PartitionAtDragStart;
@@ -1576,7 +1581,7 @@ namespace Dragablz
             SelectedItem = newItem;
 
             if (_dragablzItemsControl == null) return;
-            Dispatcher.BeginInvoke(new Action(_dragablzItemsControl.InvalidateMeasure), DispatcherPriority.Loaded);
+            Dispatcher.BeginInvoke(_dragablzItemsControl.InvalidateMeasure, DispatcherPriority.Loaded);
         }
 
         private void PrepareChildContainerForItemOverride(DependencyObject dependencyObject, object o)
