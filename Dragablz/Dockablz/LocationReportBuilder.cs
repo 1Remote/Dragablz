@@ -1,51 +1,49 @@
 using System;
 
-namespace Dragablz.Dockablz
+namespace Dragablz.Dockablz;
+internal class LocationReportBuilder
 {
-    internal class LocationReportBuilder
+    private readonly TabablzControl _targetTabablzControl;
+    private Branch? _branch;
+    private bool _isSecondLeaf;
+    private Layout? _layout;
+
+    public LocationReportBuilder(TabablzControl targetTabablzControl)
     {
-        private readonly TabablzControl _targetTabablzControl;
-        private Branch? _branch;
-        private bool _isSecondLeaf;
-        private Layout? _layout;
+        _targetTabablzControl = targetTabablzControl;
+    }
 
-        public LocationReportBuilder(TabablzControl targetTabablzControl)
-        {
-            _targetTabablzControl = targetTabablzControl;
-        }
+    public TabablzControl TargetTabablzControl => _targetTabablzControl;
 
-        public TabablzControl TargetTabablzControl => _targetTabablzControl;
+    public bool IsFound { get; private set; }
 
-        public bool IsFound { get; private set; }
+    public void MarkFound()
+    {
+        if (IsFound)
+            throw new InvalidOperationException("Already found.");
 
-        public void MarkFound()
-        {
-            if (IsFound)
-                throw new InvalidOperationException("Already found.");
+        IsFound = true;
 
-            IsFound = true;
+        _layout = CurrentLayout;
+    }
 
-            _layout = CurrentLayout;
-        }
+    public void MarkFound(Branch branch, bool isSecondLeaf)
+    {
+        if (branch == null) throw new ArgumentNullException("branch");
+        if (IsFound)
+            throw new InvalidOperationException("Already found.");
 
-        public void MarkFound(Branch branch, bool isSecondLeaf)
-        {
-            if (branch == null) throw new ArgumentNullException("branch");
-            if (IsFound)
-                throw new InvalidOperationException("Already found.");
+        IsFound = true;
 
-            IsFound = true;
+        _layout = CurrentLayout;
+        _branch = branch;
+        _isSecondLeaf = isSecondLeaf;
+    }
 
-            _layout = CurrentLayout;
-            _branch = branch;
-            _isSecondLeaf = isSecondLeaf;
-        }
+    public Layout? CurrentLayout { get; set; }
 
-        public Layout? CurrentLayout { get; set; }
-
-        public LocationReport ToLocationReport()
-        {
-            return new LocationReport(_targetTabablzControl, _layout!, _branch, _isSecondLeaf);
-        }
+    public LocationReport ToLocationReport()
+    {
+        return new LocationReport(_targetTabablzControl, _layout!, _branch, _isSecondLeaf);
     }
 }

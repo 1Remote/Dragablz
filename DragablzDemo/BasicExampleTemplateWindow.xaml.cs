@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,16 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace DragablzDemo
+namespace DragablzDemo;
+/// <summary>
+/// Interaction logic for BasicExampleTemplateWindow.xaml
+/// </summary>
+public partial class BasicExampleTemplateWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for BasicExampleTemplateWindow.xaml
-    /// </summary>
-    public partial class BasicExampleTemplateWindow : Window
+    public BasicExampleTemplateWindow()
     {
-        public BasicExampleTemplateWindow()
-        {
-            InitializeComponent();
-        }        
-    }
+        InitializeComponent();
+    }        
 }

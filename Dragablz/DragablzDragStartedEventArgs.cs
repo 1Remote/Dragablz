@@ -2,37 +2,35 @@ using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 
-namespace Dragablz
+namespace Dragablz;
+public delegate void DragablzDragStartedEventHandler(object sender, DragablzDragStartedEventArgs e);
+
+public class DragablzDragStartedEventArgs : DragablzItemEventArgs
 {
-    public delegate void DragablzDragStartedEventHandler(object sender, DragablzDragStartedEventArgs e);
+    private readonly DragStartedEventArgs _dragStartedEventArgs;
 
-    public class DragablzDragStartedEventArgs : DragablzItemEventArgs
+    public DragablzDragStartedEventArgs(DragablzItem dragablzItem, DragStartedEventArgs dragStartedEventArgs)
+        : base(dragablzItem)
     {
-        private readonly DragStartedEventArgs _dragStartedEventArgs;
+        if (dragStartedEventArgs == null) throw new ArgumentNullException("dragStartedEventArgs");
 
-        public DragablzDragStartedEventArgs(DragablzItem dragablzItem, DragStartedEventArgs dragStartedEventArgs)
-            : base(dragablzItem)
-        {
-            if (dragStartedEventArgs == null) throw new ArgumentNullException("dragStartedEventArgs");
-
-            _dragStartedEventArgs = dragStartedEventArgs;
-        }
-
-        public DragablzDragStartedEventArgs(RoutedEvent routedEvent, DragablzItem dragablzItem, DragStartedEventArgs dragStartedEventArgs)
-            : base(routedEvent, dragablzItem)
-        {
-            _dragStartedEventArgs = dragStartedEventArgs;
-        }
-
-        public DragablzDragStartedEventArgs(RoutedEvent routedEvent, object source, DragablzItem dragablzItem, DragStartedEventArgs dragStartedEventArgs)
-            : base(routedEvent, source, dragablzItem)
-        {
-            _dragStartedEventArgs = dragStartedEventArgs;
-        }
-
-        public DragStartedEventArgs DragStartedEventArgs
-        {
-            get { return _dragStartedEventArgs; }
-        }        
+        _dragStartedEventArgs = dragStartedEventArgs;
     }
+
+    public DragablzDragStartedEventArgs(RoutedEvent routedEvent, DragablzItem dragablzItem, DragStartedEventArgs dragStartedEventArgs)
+        : base(routedEvent, dragablzItem)
+    {
+        _dragStartedEventArgs = dragStartedEventArgs;
+    }
+
+    public DragablzDragStartedEventArgs(RoutedEvent routedEvent, object source, DragablzItem dragablzItem, DragStartedEventArgs dragStartedEventArgs)
+        : base(routedEvent, source, dragablzItem)
+    {
+        _dragStartedEventArgs = dragStartedEventArgs;
+    }
+
+    public DragStartedEventArgs DragStartedEventArgs
+    {
+        get { return _dragStartedEventArgs; }
+    }        
 }

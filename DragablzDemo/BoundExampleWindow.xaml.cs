@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,16 +14,14 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace DragablzDemo
+namespace DragablzDemo;
+/// <summary>
+/// Interaction logic for BoundExampleWindow.xaml
+/// </summary>
+public partial class BoundExampleWindow
 {
-    /// <summary>
-    /// Interaction logic for BoundExampleWindow.xaml
-    /// </summary>
-    public partial class BoundExampleWindow
+    public BoundExampleWindow()
     {
-        public BoundExampleWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

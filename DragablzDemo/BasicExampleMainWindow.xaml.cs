@@ -1,17 +1,15 @@
-﻿using System.Windows;
+using System.Windows;
 
-namespace DragablzDemo
+namespace DragablzDemo;
+/// <summary>
+/// Interaction logic for BasicExampleMainWindow.xaml
+/// </summary>
+public partial class BasicExampleMainWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for BasicExampleMainWindow.xaml
-    /// </summary>
-    public partial class BasicExampleMainWindow : Window
+    public BasicExampleMainWindow()
     {
-        public BasicExampleMainWindow()
-        {
-            InitializeComponent();
+        InitializeComponent();
 
-            DataContext = new BasicExampleMainModel();            
-        }
+        DataContext = new BasicExampleMainModel();            
     }
 }

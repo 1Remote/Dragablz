@@ -1,21 +1,19 @@
-﻿using System;
+using System;
 
-namespace Dragablz.Referenceless
+namespace Dragablz.Referenceless;
+internal sealed class DefaultDisposable : IDisposable
 {
-    internal sealed class DefaultDisposable : IDisposable
+    public static readonly DefaultDisposable Instance = new DefaultDisposable();
+
+    static DefaultDisposable()
     {
-        public static readonly DefaultDisposable Instance = new DefaultDisposable();
+    }
 
-        static DefaultDisposable()
-        {
-        }
+    private DefaultDisposable()
+    {
+    }
 
-        private DefaultDisposable()
-        {
-        }
-
-        public void Dispose()
-        {
-        }
+    public void Dispose()
+    {
     }
 }

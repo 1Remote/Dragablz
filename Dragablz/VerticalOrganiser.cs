@@ -1,11 +1,9 @@
-﻿using System.Windows.Controls;
+using System.Windows.Controls;
 
-namespace Dragablz
+namespace Dragablz;
+public class VerticalOrganiser : StackOrganiser
 {
-    public class VerticalOrganiser : StackOrganiser
+    public VerticalOrganiser() : base(Orientation.Vertical)
     {
-        public VerticalOrganiser() : base(Orientation.Vertical)
-        {
-        }
     }
 }

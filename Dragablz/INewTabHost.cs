@@ -1,10 +1,8 @@
-﻿using System.Windows;
+using System.Windows;
 
-namespace Dragablz
+namespace Dragablz;
+public interface INewTabHost<out TElement> where TElement : UIElement
 {
-    public interface INewTabHost<out TElement> where TElement : UIElement
-    {
-        TElement Container { get; }
-        TabablzControl TabablzControl { get; }
-    }
+    TElement Container { get; }
+    TabablzControl TabablzControl { get; }
 }

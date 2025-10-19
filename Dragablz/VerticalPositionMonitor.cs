@@ -1,11 +1,9 @@
-﻿using System.Windows.Controls;
+using System.Windows.Controls;
 
-namespace Dragablz
+namespace Dragablz;
+public class VerticalPositionMonitor : StackPositionMonitor
 {
-    public class VerticalPositionMonitor : StackPositionMonitor
+    public VerticalPositionMonitor() : base(Orientation.Vertical)
     {
-        public VerticalPositionMonitor() : base(Orientation.Vertical)
-        {
-        }
     }
 }

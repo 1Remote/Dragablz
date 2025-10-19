@@ -1,30 +1,28 @@
-﻿using System;
+using System;
 using System.Windows;
 
-namespace Dragablz
+namespace Dragablz;
+public class NewTabHost<TElement> : INewTabHost<TElement> where TElement : UIElement
 {
-    public class NewTabHost<TElement> : INewTabHost<TElement> where TElement : UIElement
+    private readonly TElement _container;
+    private readonly TabablzControl _tabablzControl;
+
+    public NewTabHost(TElement container, TabablzControl tabablzControl)
     {
-        private readonly TElement _container;
-        private readonly TabablzControl _tabablzControl;
+        if (container == null) throw new ArgumentNullException("container");
+        if (tabablzControl == null) throw new ArgumentNullException("tabablzControl");
 
-        public NewTabHost(TElement container, TabablzControl tabablzControl)
-        {
-            if (container == null) throw new ArgumentNullException("container");
-            if (tabablzControl == null) throw new ArgumentNullException("tabablzControl");
+        _container = container;
+        _tabablzControl = tabablzControl;
+    }
 
-            _container = container;
-            _tabablzControl = tabablzControl;
-        }
+    public TElement Container
+    {
+        get { return _container; }
+    }
 
-        public TElement Container
-        {
-            get { return _container; }
-        }
-
-        public TabablzControl TabablzControl
-        {
-            get { return _tabablzControl; }
-        }
+    public TabablzControl TabablzControl
+    {
+        get { return _tabablzControl; }
     }
 }

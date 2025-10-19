@@ -1,18 +1,16 @@
-namespace Dragablz
+namespace Dragablz;
+public class MoveItemRequest
 {
-    public class MoveItemRequest
+    public MoveItemRequest(object item, object? context, AddLocationHint addLocationHint)
     {
-        public MoveItemRequest(object item, object? context, AddLocationHint addLocationHint)
-        {
-            Item = item;
-            Context = context;
-            AddLocationHint = addLocationHint;
-        }
-
-        public object Item { get; }
-
-        public object? Context { get; }
-
-        public AddLocationHint AddLocationHint { get; }
+        Item = item;
+        Context = context;
+        AddLocationHint = addLocationHint;
     }
+
+    public object Item { get; }
+
+    public object? Context { get; }
+
+    public AddLocationHint AddLocationHint { get; }
 }

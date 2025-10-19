@@ -1,22 +1,20 @@
 using System;
 
-namespace Dragablz.Dockablz
+namespace Dragablz.Dockablz;
+/// <summary>
+/// 
+/// </summary>
+public class LocationReportException : Exception
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class LocationReportException : Exception
+    public LocationReportException()
     {
-        public LocationReportException()
-        {
-        }
+    }
 
-        public LocationReportException(string message) : base(message)
-        {
-        }
+    public LocationReportException(string message) : base(message)
+    {
+    }
 
-        public LocationReportException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
+    public LocationReportException(string message, Exception innerException) : base(message, innerException)
+    {
     }
 }

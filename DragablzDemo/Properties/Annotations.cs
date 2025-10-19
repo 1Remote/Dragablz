@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 #pragma warning disable 1591
 // ReSharper disable UnusedMember.Global
@@ -9,8 +9,7 @@
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable InconsistentNaming
 
-namespace DragablzDemo.Annotations
-{
+namespace DragablzDemo.Annotations;
   /// <summary>
   /// Indicates that the value of the marked element could be <c>null</c> sometimes,
   /// so the check for <c>null</c> is necessary before its usage
@@ -23,9 +22,9 @@ namespace DragablzDemo.Annotations
   /// }
   /// </code></example>
   [AttributeUsage(
-    AttributeTargets.Method | AttributeTargets.Parameter |
-    AttributeTargets.Property | AttributeTargets.Delegate |
-    AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
+AttributeTargets.Method | AttributeTargets.Parameter |
+AttributeTargets.Property | AttributeTargets.Delegate |
+AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
   public sealed class CanBeNullAttribute : Attribute { }
 
   /// <summary>
@@ -37,9 +36,9 @@ namespace DragablzDemo.Annotations
   /// }
   /// </code></example>
   [AttributeUsage(
-    AttributeTargets.Method | AttributeTargets.Parameter |
-    AttributeTargets.Property | AttributeTargets.Delegate |
-    AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
+AttributeTargets.Method | AttributeTargets.Parameter |
+AttributeTargets.Property | AttributeTargets.Delegate |
+AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
   public sealed class NotNullAttribute : Attribute { }
 
   /// <summary>
@@ -55,19 +54,19 @@ namespace DragablzDemo.Annotations
   /// }
   /// </code></example>
   [AttributeUsage(
-    AttributeTargets.Constructor | AttributeTargets.Method,
-    AllowMultiple = false, Inherited = true)]
+AttributeTargets.Constructor | AttributeTargets.Method,
+AllowMultiple = false, Inherited = true)]
   public sealed class StringFormatMethodAttribute : Attribute
   {
-    /// <param name="formatParameterName">
-    /// Specifies which parameter of an annotated method should be treated as format-string
-    /// </param>
-    public StringFormatMethodAttribute(string formatParameterName)
-    {
-      FormatParameterName = formatParameterName;
-    }
+/// <param name="formatParameterName">
+/// Specifies which parameter of an annotated method should be treated as format-string
+/// </param>
+public StringFormatMethodAttribute(string formatParameterName)
+{
+  FormatParameterName = formatParameterName;
+}
 
-    public string FormatParameterName { get; private set; }
+public string FormatParameterName { get; private set; }
   }
 
   /// <summary>
@@ -123,13 +122,13 @@ namespace DragablzDemo.Annotations
   [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
   public sealed class NotifyPropertyChangedInvocatorAttribute : Attribute
   {
-    public NotifyPropertyChangedInvocatorAttribute() { }
-    public NotifyPropertyChangedInvocatorAttribute(string parameterName)
-    {
-      ParameterName = parameterName;
-    }
+public NotifyPropertyChangedInvocatorAttribute() { }
+public NotifyPropertyChangedInvocatorAttribute(string parameterName)
+{
+  ParameterName = parameterName;
+}
 
-    public string ParameterName { get; private set; }
+public string ParameterName { get; private set; }
   }
 
   /// <summary>
@@ -177,17 +176,17 @@ namespace DragablzDemo.Annotations
   [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
   public sealed class ContractAnnotationAttribute : Attribute
   {
-    public ContractAnnotationAttribute([NotNull] string contract)
-      : this(contract, false) { }
+public ContractAnnotationAttribute([NotNull] string contract)
+  : this(contract, false) { }
 
-    public ContractAnnotationAttribute([NotNull] string contract, bool forceFullStates)
-    {
-      Contract = contract;
-      ForceFullStates = forceFullStates;
-    }
+public ContractAnnotationAttribute([NotNull] string contract, bool forceFullStates)
+{
+  Contract = contract;
+  ForceFullStates = forceFullStates;
+}
 
-    public string Contract { get; private set; }
-    public bool ForceFullStates { get; private set; }
+public string Contract { get; private set; }
+public bool ForceFullStates { get; private set; }
   }
 
   /// <summary>
@@ -202,13 +201,13 @@ namespace DragablzDemo.Annotations
   [AttributeUsage(AttributeTargets.All, AllowMultiple = false, Inherited = true)]
   public sealed class LocalizationRequiredAttribute : Attribute
   {
-    public LocalizationRequiredAttribute() : this(true) { }
-    public LocalizationRequiredAttribute(bool required)
-    {
-      Required = required;
-    }
+public LocalizationRequiredAttribute() : this(true) { }
+public LocalizationRequiredAttribute(bool required)
+{
+  Required = required;
+}
 
-    public bool Required { get; private set; }
+public bool Required { get; private set; }
   }
 
   /// <summary>
@@ -231,8 +230,8 @@ namespace DragablzDemo.Annotations
   /// }
   /// </code></example>
   [AttributeUsage(
-    AttributeTargets.Interface | AttributeTargets.Class |
-    AttributeTargets.Struct, AllowMultiple = false, Inherited = true)]
+AttributeTargets.Interface | AttributeTargets.Class |
+AttributeTargets.Struct, AllowMultiple = false, Inherited = true)]
   public sealed class CannotApplyEqualityOperatorAttribute : Attribute { }
 
   /// <summary>
@@ -249,12 +248,12 @@ namespace DragablzDemo.Annotations
   [BaseTypeRequired(typeof(Attribute))]
   public sealed class BaseTypeRequiredAttribute : Attribute
   {
-    public BaseTypeRequiredAttribute([NotNull] Type baseType)
-    {
-      BaseType = baseType;
-    }
+public BaseTypeRequiredAttribute([NotNull] Type baseType)
+{
+  BaseType = baseType;
+}
 
-    [NotNull] public Type BaseType { get; private set; }
+[NotNull] public Type BaseType { get; private set; }
   }
 
   /// <summary>
@@ -265,24 +264,24 @@ namespace DragablzDemo.Annotations
   [AttributeUsage(AttributeTargets.All, AllowMultiple = false, Inherited = true)]
   public sealed class UsedImplicitlyAttribute : Attribute
   {
-    public UsedImplicitlyAttribute()
-      : this(ImplicitUseKindFlags.Default, ImplicitUseTargetFlags.Default) { }
+public UsedImplicitlyAttribute()
+  : this(ImplicitUseKindFlags.Default, ImplicitUseTargetFlags.Default) { }
 
-    public UsedImplicitlyAttribute(ImplicitUseKindFlags useKindFlags)
-      : this(useKindFlags, ImplicitUseTargetFlags.Default) { }
+public UsedImplicitlyAttribute(ImplicitUseKindFlags useKindFlags)
+  : this(useKindFlags, ImplicitUseTargetFlags.Default) { }
 
-    public UsedImplicitlyAttribute(ImplicitUseTargetFlags targetFlags)
-      : this(ImplicitUseKindFlags.Default, targetFlags) { }
+public UsedImplicitlyAttribute(ImplicitUseTargetFlags targetFlags)
+  : this(ImplicitUseKindFlags.Default, targetFlags) { }
 
-    public UsedImplicitlyAttribute(
-      ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
-    {
-      UseKindFlags = useKindFlags;
-      TargetFlags = targetFlags;
-    }
+public UsedImplicitlyAttribute(
+  ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
+{
+  UseKindFlags = useKindFlags;
+  TargetFlags = targetFlags;
+}
 
-    public ImplicitUseKindFlags UseKindFlags { get; private set; }
-    public ImplicitUseTargetFlags TargetFlags { get; private set; }
+public ImplicitUseKindFlags UseKindFlags { get; private set; }
+public ImplicitUseTargetFlags TargetFlags { get; private set; }
   }
 
   /// <summary>
@@ -293,41 +292,41 @@ namespace DragablzDemo.Annotations
   [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
   public sealed class MeansImplicitUseAttribute : Attribute
   {
-    public MeansImplicitUseAttribute() 
-      : this(ImplicitUseKindFlags.Default, ImplicitUseTargetFlags.Default) { }
+public MeansImplicitUseAttribute() 
+  : this(ImplicitUseKindFlags.Default, ImplicitUseTargetFlags.Default) { }
 
-    public MeansImplicitUseAttribute(ImplicitUseKindFlags useKindFlags)
-      : this(useKindFlags, ImplicitUseTargetFlags.Default) { }
+public MeansImplicitUseAttribute(ImplicitUseKindFlags useKindFlags)
+  : this(useKindFlags, ImplicitUseTargetFlags.Default) { }
 
-    public MeansImplicitUseAttribute(ImplicitUseTargetFlags targetFlags)
-      : this(ImplicitUseKindFlags.Default, targetFlags) { }
+public MeansImplicitUseAttribute(ImplicitUseTargetFlags targetFlags)
+  : this(ImplicitUseKindFlags.Default, targetFlags) { }
 
-    public MeansImplicitUseAttribute(
-      ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
-    {
-      UseKindFlags = useKindFlags;
-      TargetFlags = targetFlags;
-    }
+public MeansImplicitUseAttribute(
+  ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
+{
+  UseKindFlags = useKindFlags;
+  TargetFlags = targetFlags;
+}
 
-    [UsedImplicitly] public ImplicitUseKindFlags UseKindFlags { get; private set; }
-    [UsedImplicitly] public ImplicitUseTargetFlags TargetFlags { get; private set; }
+[UsedImplicitly] public ImplicitUseKindFlags UseKindFlags { get; private set; }
+[UsedImplicitly] public ImplicitUseTargetFlags TargetFlags { get; private set; }
   }
   
   [Flags]
   public enum ImplicitUseKindFlags
   {
-    Default = Access | Assign | InstantiatedWithFixedConstructorSignature,
-    /// <summary>Only entity marked with attribute considered used</summary>
-    Access = 1,
-    /// <summary>Indicates implicit assignment to a member</summary>
-    Assign = 2,
-    /// <summary>
-    /// Indicates implicit instantiation of a type with fixed constructor signature.
-    /// That means any unused constructor parameters won't be reported as such.
-    /// </summary>
-    InstantiatedWithFixedConstructorSignature = 4,
-    /// <summary>Indicates implicit instantiation of a type</summary>
-    InstantiatedNoFixedConstructorSignature = 8,
+Default = Access | Assign | InstantiatedWithFixedConstructorSignature,
+/// <summary>Only entity marked with attribute considered used</summary>
+Access = 1,
+/// <summary>Indicates implicit assignment to a member</summary>
+Assign = 2,
+/// <summary>
+/// Indicates implicit instantiation of a type with fixed constructor signature.
+/// That means any unused constructor parameters won't be reported as such.
+/// </summary>
+InstantiatedWithFixedConstructorSignature = 4,
+/// <summary>Indicates implicit instantiation of a type</summary>
+InstantiatedNoFixedConstructorSignature = 8,
   }
 
   /// <summary>
@@ -338,12 +337,12 @@ namespace DragablzDemo.Annotations
   [Flags]
   public enum ImplicitUseTargetFlags
   {
-    Default = Itself,
-    Itself = 1,
-    /// <summary>Members of entity marked with attribute are considered used</summary>
-    Members = 2,
-    /// <summary>Entity marked with attribute and all its members considered used</summary>
-    WithMembers = Itself | Members
+Default = Itself,
+Itself = 1,
+/// <summary>Members of entity marked with attribute are considered used</summary>
+Members = 2,
+/// <summary>Entity marked with attribute and all its members considered used</summary>
+WithMembers = Itself | Members
   }
 
   /// <summary>
@@ -353,13 +352,13 @@ namespace DragablzDemo.Annotations
   [MeansImplicitUse]
   public sealed class PublicAPIAttribute : Attribute
   {
-    public PublicAPIAttribute() { }
-    public PublicAPIAttribute([NotNull] string comment)
-    {
-      Comment = comment;
-    }
+public PublicAPIAttribute() { }
+public PublicAPIAttribute([NotNull] string comment)
+{
+  Comment = comment;
+}
 
-    [NotNull] public string Comment { get; private set; }
+[NotNull] public string Comment { get; private set; }
   }
 
   /// <summary>
@@ -394,13 +393,13 @@ namespace DragablzDemo.Annotations
   [AttributeUsage(AttributeTargets.Parameter)]
   public class PathReferenceAttribute : Attribute
   {
-    public PathReferenceAttribute() { }
-    public PathReferenceAttribute([PathReference] string basePath)
-    {
-      BasePath = basePath;
-    }
+public PathReferenceAttribute() { }
+public PathReferenceAttribute([PathReference] string basePath)
+{
+  BasePath = basePath;
+}
 
-    [NotNull] public string BasePath { get; private set; }
+[NotNull] public string BasePath { get; private set; }
   }
 
   // ASP.NET MVC attributes
@@ -408,37 +407,37 @@ namespace DragablzDemo.Annotations
   [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
   public sealed class AspMvcAreaMasterLocationFormatAttribute : Attribute
   {
-    public AspMvcAreaMasterLocationFormatAttribute(string format) { }
+public AspMvcAreaMasterLocationFormatAttribute(string format) { }
   }
 
   [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
   public sealed class AspMvcAreaPartialViewLocationFormatAttribute : Attribute
   {
-    public AspMvcAreaPartialViewLocationFormatAttribute(string format) { }
+public AspMvcAreaPartialViewLocationFormatAttribute(string format) { }
   }
 
   [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
   public sealed class AspMvcAreaViewLocationFormatAttribute : Attribute
   {
-    public AspMvcAreaViewLocationFormatAttribute(string format) { }
+public AspMvcAreaViewLocationFormatAttribute(string format) { }
   }
 
   [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
   public sealed class AspMvcMasterLocationFormatAttribute : Attribute
   {
-    public AspMvcMasterLocationFormatAttribute(string format) { }
+public AspMvcMasterLocationFormatAttribute(string format) { }
   }
 
   [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
   public sealed class AspMvcPartialViewLocationFormatAttribute : Attribute
   {
-    public AspMvcPartialViewLocationFormatAttribute(string format) { }
+public AspMvcPartialViewLocationFormatAttribute(string format) { }
   }
 
   [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
   public sealed class AspMvcViewLocationFormatAttribute : Attribute
   {
-    public AspMvcViewLocationFormatAttribute(string format) { }
+public AspMvcViewLocationFormatAttribute(string format) { }
   }
   
   /// <summary>
@@ -450,13 +449,13 @@ namespace DragablzDemo.Annotations
   [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
   public sealed class AspMvcActionAttribute : Attribute
   {
-    public AspMvcActionAttribute() { }
-    public AspMvcActionAttribute([NotNull] string anonymousProperty)
-    {
-      AnonymousProperty = anonymousProperty;
-    }
+public AspMvcActionAttribute() { }
+public AspMvcActionAttribute([NotNull] string anonymousProperty)
+{
+  AnonymousProperty = anonymousProperty;
+}
 
-    [NotNull] public string AnonymousProperty { get; private set; }
+[NotNull] public string AnonymousProperty { get; private set; }
   }
 
   /// <summary>
@@ -467,13 +466,13 @@ namespace DragablzDemo.Annotations
   [AttributeUsage(AttributeTargets.Parameter)]
   public sealed class AspMvcAreaAttribute : PathReferenceAttribute
   {
-    public AspMvcAreaAttribute() { }
-    public AspMvcAreaAttribute([NotNull] string anonymousProperty)
-    {
-      AnonymousProperty = anonymousProperty;
-    }
+public AspMvcAreaAttribute() { }
+public AspMvcAreaAttribute([NotNull] string anonymousProperty)
+{
+  AnonymousProperty = anonymousProperty;
+}
 
-    [NotNull] public string AnonymousProperty { get; private set; }
+[NotNull] public string AnonymousProperty { get; private set; }
   }
 
   /// <summary>
@@ -486,13 +485,13 @@ namespace DragablzDemo.Annotations
   [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
   public sealed class AspMvcControllerAttribute : Attribute
   {
-    public AspMvcControllerAttribute() { }
-    public AspMvcControllerAttribute([NotNull] string anonymousProperty)
-    {
-      AnonymousProperty = anonymousProperty;
-    }
+public AspMvcControllerAttribute() { }
+public AspMvcControllerAttribute([NotNull] string anonymousProperty)
+{
+  AnonymousProperty = anonymousProperty;
+}
 
-    [NotNull] public string AnonymousProperty { get; private set; }
+[NotNull] public string AnonymousProperty { get; private set; }
   }
 
   /// <summary>
@@ -576,30 +575,30 @@ namespace DragablzDemo.Annotations
   public sealed class AspMvcActionSelectorAttribute : Attribute { }
 
   [AttributeUsage(
-    AttributeTargets.Parameter | AttributeTargets.Property |
-    AttributeTargets.Field, Inherited = true)]
+AttributeTargets.Parameter | AttributeTargets.Property |
+AttributeTargets.Field, Inherited = true)]
   public sealed class HtmlElementAttributesAttribute : Attribute
   {
-    public HtmlElementAttributesAttribute() { }
-    public HtmlElementAttributesAttribute([NotNull] string name)
-    {
-      Name = name;
-    }
+public HtmlElementAttributesAttribute() { }
+public HtmlElementAttributesAttribute([NotNull] string name)
+{
+  Name = name;
+}
 
-    [NotNull] public string Name { get; private set; }
+[NotNull] public string Name { get; private set; }
   }
 
   [AttributeUsage(
-    AttributeTargets.Parameter | AttributeTargets.Field |
-    AttributeTargets.Property, Inherited = true)]
+AttributeTargets.Parameter | AttributeTargets.Field |
+AttributeTargets.Property, Inherited = true)]
   public sealed class HtmlAttributeValueAttribute : Attribute
   {
-    public HtmlAttributeValueAttribute([NotNull] string name)
-    {
-      Name = name;
-    }
+public HtmlAttributeValueAttribute([NotNull] string name)
+{
+  Name = name;
+}
 
-    [NotNull] public string Name { get; private set; }
+[NotNull] public string Name { get; private set; }
   }
 
   // Razor attributes
@@ -611,4 +610,3 @@ namespace DragablzDemo.Annotations
   /// </summary>
   [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method, Inherited = true)]
   public sealed class RazorSectionAttribute : Attribute { }
-}

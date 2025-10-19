@@ -3,37 +3,35 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Media.Animation;
 
-namespace Dragablz
+namespace Dragablz;
+internal class StoryboardCompletionListener
 {
-    internal class StoryboardCompletionListener
+    private readonly Storyboard _storyboard;
+    private readonly Action<Storyboard> _continuation;
+
+    public StoryboardCompletionListener(Storyboard storyboard, Action<Storyboard> continuation)
     {
-        private readonly Storyboard _storyboard;
-        private readonly Action<Storyboard> _continuation;
+        if (storyboard == null) throw new ArgumentNullException("storyboard");
+        if (continuation == null) throw new ArgumentNullException("continuation");
 
-        public StoryboardCompletionListener(Storyboard storyboard, Action<Storyboard> continuation)
-        {
-            if (storyboard == null) throw new ArgumentNullException("storyboard");
-            if (continuation == null) throw new ArgumentNullException("continuation");
+        _storyboard = storyboard;
+        _continuation = continuation;
 
-            _storyboard = storyboard;
-            _continuation = continuation;
-
-            _storyboard.Completed += StoryboardOnCompleted;
-        }
-
-        private void StoryboardOnCompleted(object? sender, EventArgs eventArgs)
-        {
-            _storyboard.Completed -= StoryboardOnCompleted;
-            _continuation(_storyboard);
-        }
+        _storyboard.Completed += StoryboardOnCompleted;
     }
 
-    internal static class StoryboardCompletionListenerExtension
+    private void StoryboardOnCompleted(object? sender, EventArgs eventArgs)
     {
-        public static void WhenComplete(this Storyboard storyboard, Action<Storyboard> continuation)
-        {
+        _storyboard.Completed -= StoryboardOnCompleted;
+        _continuation(_storyboard);
+    }
+}
+
+internal static class StoryboardCompletionListenerExtension
+{
+    public static void WhenComplete(this Storyboard storyboard, Action<Storyboard> continuation)
+    {
 // ReSharper disable once ObjectCreationAsStatement
-            new StoryboardCompletionListener(storyboard, continuation);
-        }        
-    }
+        new StoryboardCompletionListener(storyboard, continuation);
+    }        
 }

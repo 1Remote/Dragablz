@@ -1,8 +1,6 @@
-﻿namespace Dragablz
+namespace Dragablz;
+public interface IManualInterTabClient : IInterTabClient
 {
-    public interface IManualInterTabClient : IInterTabClient
-    {
-        void Add(object item);
-        void Remove(object item);
-    }
+    void Add(object item);
+    void Remove(object item);
 }

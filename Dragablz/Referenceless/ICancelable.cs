@@ -1,9 +1,7 @@
-﻿using System;
+using System;
 
-namespace Dragablz.Referenceless
+namespace Dragablz.Referenceless;
+internal interface ICancelable : IDisposable
 {
-    internal interface ICancelable : IDisposable
-    {
-        bool IsDisposed { get; }
-    }
+    bool IsDisposed { get; }
 }
