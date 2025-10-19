@@ -8,16 +8,13 @@ namespace Dragablz
 
     public class DragablzDragCompletedEventArgs : RoutedEventArgs
     {
-        private readonly DragablzItem _dragablzItem;
-        private readonly DragCompletedEventArgs _dragCompletedEventArgs;
-
         public DragablzDragCompletedEventArgs(DragablzItem dragablzItem, DragCompletedEventArgs dragCompletedEventArgs)
         {
             if (dragablzItem == null) throw new ArgumentNullException(nameof(dragablzItem));
             if (dragCompletedEventArgs == null) throw new ArgumentNullException(nameof(dragCompletedEventArgs));
             
-            _dragablzItem = dragablzItem;
-            _dragCompletedEventArgs = dragCompletedEventArgs;
+            DragablzItem = dragablzItem;
+            DragCompletedEventArgs = dragCompletedEventArgs;
         }
 
         public DragablzDragCompletedEventArgs(RoutedEvent routedEvent, DragablzItem dragablzItem, DragCompletedEventArgs dragCompletedEventArgs)
@@ -26,8 +23,8 @@ namespace Dragablz
             if (dragablzItem == null) throw new ArgumentNullException(nameof(dragablzItem));
             if (dragCompletedEventArgs == null) throw new ArgumentNullException(nameof(dragCompletedEventArgs));
 
-            _dragablzItem = dragablzItem;            
-            _dragCompletedEventArgs = dragCompletedEventArgs;
+            DragablzItem = dragablzItem;            
+            DragCompletedEventArgs = dragCompletedEventArgs;
         }
 
         public DragablzDragCompletedEventArgs(RoutedEvent routedEvent, object source, DragablzItem dragablzItem, DragCompletedEventArgs dragCompletedEventArgs)
@@ -36,18 +33,12 @@ namespace Dragablz
             if (dragablzItem == null) throw new ArgumentNullException(nameof(dragablzItem));
             if (dragCompletedEventArgs == null) throw new ArgumentNullException(nameof(dragCompletedEventArgs));
 
-            _dragablzItem = dragablzItem;
-            _dragCompletedEventArgs = dragCompletedEventArgs;
+            DragablzItem = dragablzItem;
+            DragCompletedEventArgs = dragCompletedEventArgs;
         }
 
-        public DragablzItem DragablzItem
-        {
-            get { return _dragablzItem; }
-        }
+        public DragablzItem DragablzItem { get; }
 
-        public DragCompletedEventArgs DragCompletedEventArgs
-        {
-            get { return _dragCompletedEventArgs; }
-        }        
+        public DragCompletedEventArgs DragCompletedEventArgs { get; }
     }
 }
