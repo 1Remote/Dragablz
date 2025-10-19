@@ -250,6 +250,9 @@ namespace Dragablz
                         return;
 
                     var contextIndex = sortedItems.IndexOf(contextDragablzItem);
+                    if (contextIndex < 0)
+                        return;
+                    
                     sortedItems.Insert(moveItemRequest.AddLocationHint == AddLocationHint.Prior ? contextIndex : contextIndex + 1, dragablzItem);
 
                     break;

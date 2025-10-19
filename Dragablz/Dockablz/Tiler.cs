@@ -17,8 +17,15 @@ namespace Dragablz.Dockablz
             if (dragablzItems == null) throw new ArgumentNullException("dragablzItems");            
 
             var items = new Queue<DragablzItem>(dragablzItems.OrderBy(Panel.GetZIndex));
+            
+            if (items.Count == 0)
+                return;
 
-            var cellCountPerColumn = TilerCalculator.GetCellCountPerColumn(items.Count());
+            var cellCountPerColumn = TilerCalculator.GetCellCountPerColumn(items.Count);
+            
+            if (cellCountPerColumn.Length == 0)
+                return;
+            
             var x = 0d;
             var cellWidth = bounds.Width / cellCountPerColumn.Length;
             foreach (var cellCount in cellCountPerColumn)
@@ -46,6 +53,9 @@ namespace Dragablz.Dockablz
             if (dragablzItems == null) throw new ArgumentNullException("dragablzItems");
 
             var items = dragablzItems.ToList();
+            
+            if (items.Count == 0)
+                return;
 
             var x = 0.0;
             var width = bounds.Width/items.Count;
@@ -65,6 +75,9 @@ namespace Dragablz.Dockablz
             if (dragablzItems == null) throw new ArgumentNullException("dragablzItems");
 
             var items = dragablzItems.ToList();
+            
+            if (items.Count == 0)
+                return;
 
             var y = 0.0;
             var height = bounds.Height / items.Count;

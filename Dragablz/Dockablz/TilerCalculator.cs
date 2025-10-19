@@ -8,6 +8,12 @@ namespace Dragablz.Dockablz
     {
         public static int[] GetCellCountPerColumn(int totalCells)
         {
+            if (totalCells <= 0)
+                return Array.Empty<int>();
+
+            if (totalCells == 1)
+                return new[] {1};
+
             if (totalCells == 2)
                 return new[] {1, 1};
 

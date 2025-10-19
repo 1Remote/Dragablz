@@ -19,6 +19,9 @@ namespace Dragablz.Converters
         /// <returns></returns>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
+            if (values == null || values.Length < 3)
+                return Visibility.Collapsed;
+            
             return ((values[0] == DependencyProperty.UnsetValue ? false : (bool)values[0]) && 
                     (values[2] == DependencyProperty.UnsetValue ? 0 : (int)values[2]) >= 
                     (values[1] == DependencyProperty.UnsetValue ? 0 : (int)values[1])) ? Visibility.Visible : Visibility.Collapsed;

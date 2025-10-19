@@ -844,13 +844,16 @@ namespace Dragablz
                         if (selectedDragablzItem != null)
                         {
                             var selectedDragablzItemIndex = sortedDragablzItems.IndexOf(selectedDragablzItem);
-                            var direction = ((e.KeyboardDevice.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)
-                                ? -1 : 1;
-                            var newIndex = selectedDragablzItemIndex + direction;
-                            if (newIndex < 0) newIndex = sortedDragablzItems.Count - 1;
-                            else if (newIndex == sortedDragablzItems.Count) newIndex = 0;
+                            if (selectedDragablzItemIndex >= 0)
+                            {
+                                var direction = ((e.KeyboardDevice.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)
+                                    ? -1 : 1;
+                                var newIndex = selectedDragablzItemIndex + direction;
+                                if (newIndex < 0) newIndex = sortedDragablzItems.Count - 1;
+                                else if (newIndex == sortedDragablzItems.Count) newIndex = 0;
 
-                            selectDragablzItem = sortedDragablzItems[newIndex];
+                                selectDragablzItem = sortedDragablzItems[newIndex];
+                            }
                         }
                     }
                     break;
