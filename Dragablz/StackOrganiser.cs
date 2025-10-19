@@ -48,38 +48,21 @@ namespace Dragablz
 
         private class LocationInfo
         {
-            private readonly DragablzItem _item;
-            private readonly double _start;
-            private readonly double _mid;
-            private readonly double _end;
-
             public LocationInfo(DragablzItem item, double start, double mid, double end)
             {
-                _item = item;
-                _start = start;
-                _mid = mid;
-                _end = end;
+                Item = item;
+                Start = start;
+                Mid = mid;
+                End = end;
             }
 
-            public double Start
-            {
-                get { return _start; }
-            }
+            public double Start { get; }
 
-            public double Mid
-            {
-                get { return _mid; }
-            }
+            public double Mid { get; }
 
-            public double End
-            {
-                get { return _end; }
-            }
+            public double End { get; }
 
-            public DragablzItem Item
-            {
-                get { return _item; }
-            }
+            public DragablzItem Item { get; }
         }
 
         #endregion

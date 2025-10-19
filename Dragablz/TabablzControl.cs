@@ -648,7 +648,7 @@ namespace Dragablz
         {
             if (item == null) throw new ArgumentNullException(nameof(item));
 
-            var manualInterTabClient = InterTabController == null ? null : InterTabController.InterTabClient as IManualInterTabClient;
+            var manualInterTabClient = InterTabController?.InterTabClient as IManualInterTabClient;
             if (manualInterTabClient != null)
             {
                 manualInterTabClient.Add(item);
@@ -1569,7 +1569,7 @@ namespace Dragablz
 
             var tabablzControl = LoadedInstances.FirstOrDefault(tc => tc.IsMyItem(dragablzItem));
 
-            return tabablzControl == null ? null : new Tuple<DragablzItem, TabablzControl>(dragablzItem, tabablzControl);
+            return tabablzControl != null ? new Tuple<DragablzItem, TabablzControl>(dragablzItem, tabablzControl) : null;
         }
 
         private void AddItemHandler(object sender, ExecutedRoutedEventArgs e)
