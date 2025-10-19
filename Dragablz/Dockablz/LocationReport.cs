@@ -15,8 +15,8 @@ namespace Dragablz.Dockablz
 
         internal LocationReport(TabablzControl tabablzControl, Layout rootLayout, Branch? parentBranch, bool isSecondLeaf)
         {
-            if (tabablzControl == null) throw new ArgumentNullException("tabablzControl");
-            if (rootLayout == null) throw new ArgumentNullException("rootLayout");
+            if (tabablzControl == null) throw new ArgumentNullException(nameof(tabablzControl));
+            if (rootLayout == null) throw new ArgumentNullException(nameof(rootLayout));
 
             TabablzControl = tabablzControl;
             RootLayout = rootLayout;

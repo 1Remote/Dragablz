@@ -15,7 +15,7 @@ namespace Dragablz.Dockablz
 
         public BranchAccessor(Branch branch)
         {
-            if (branch == null) throw new ArgumentNullException("branch");
+            if (branch == null) throw new ArgumentNullException(nameof(branch));
 
             _branch = branch;
 
@@ -87,7 +87,7 @@ namespace Dragablz.Dockablz
                     contentGetter = () => _branch.SecondItem;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("childItem");
+                    throw new ArgumentOutOfRangeException(nameof(childItem));
             }
 
             var branchDescription = branchGetter();

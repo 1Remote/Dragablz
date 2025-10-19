@@ -135,7 +135,7 @@ namespace Dragablz
         /// <param name="addLocationHint">Location, relative to the <paramref name="nearItem"/> object</param>
         public static void AddItem(object item, object nearItem, AddLocationHint addLocationHint)
         {
-            if (nearItem == null) throw new ArgumentNullException("nearItem");
+            if (nearItem == null) throw new ArgumentNullException(nameof(nearItem));
 
             var existingLocation = GetLoadedInstances().SelectMany(tabControl =>
                 (tabControl.ItemsSource ?? tabControl.Items).OfType<object>()
@@ -646,9 +646,9 @@ namespace Dragablz
         /// <param name="item"></param>
         public void AddToSource(object item)
         {
-            if (item == null) throw new ArgumentNullException("item");
+            if (item == null) throw new ArgumentNullException(nameof(item));
 
-            var manualInterTabClient = InterTabController == null ? null : InterTabController.InterTabClient as IManualInterTabClient;
+            var manualInterTabClient = InterTabController?.InterTabClient as IManualInterTabClient;
             if (manualInterTabClient != null)
             {
                 manualInterTabClient.Add(item);
@@ -669,7 +669,7 @@ namespace Dragablz
         /// <param name="item"></param>
         public void RemoveFromSource(object item)
         {
-            if (item == null) throw new ArgumentNullException("item");
+            if (item == null) throw new ArgumentNullException(nameof(item));
 
             if (InterTabController?.InterTabClient is IManualInterTabClient manualInterTabClient)
             {
@@ -1569,7 +1569,7 @@ namespace Dragablz
 
             var tabablzControl = LoadedInstances.FirstOrDefault(tc => tc.IsMyItem(dragablzItem));
 
-            return tabablzControl == null ? null : new Tuple<DragablzItem, TabablzControl>(dragablzItem, tabablzControl);
+            return tabablzControl != null ? new Tuple<DragablzItem, TabablzControl>(dragablzItem, tabablzControl) : null;
         }
 
         private void AddItemHandler(object sender, ExecutedRoutedEventArgs e)

@@ -24,7 +24,7 @@ namespace Dragablz
                     _getLocation = item => item.Y;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("orientation");
+                    throw new ArgumentOutOfRangeException(nameof(orientation));
             }
         }
 
@@ -32,13 +32,12 @@ namespace Dragablz
 
         internal virtual void OnOrderChanged(OrderChangedEventArgs e)
         {
-            var handler = OrderChanged;
-            if (handler != null) handler(this, e);
+            OrderChanged?.Invoke(this, e);
         }
 
         internal IEnumerable<DragablzItem> Sort(IEnumerable<DragablzItem> items)
         {
-            if (items == null) throw new ArgumentNullException("items");
+            if (items == null) throw new ArgumentNullException(nameof(items));
             if (_getLocation == null) throw new InvalidOperationException("Orientation not set.");
 
             return items.OrderBy(i => _getLocation(i));

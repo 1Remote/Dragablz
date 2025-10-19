@@ -27,7 +27,7 @@ namespace Dragablz
         /// <returns></returns>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values == null) throw new ArgumentNullException("values");
+            if (values == null) throw new ArgumentNullException(nameof(values));
 
             if (values.Length < 2) return Binding.DoNothing;
 

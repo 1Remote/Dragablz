@@ -19,7 +19,7 @@ namespace Dragablz.Core
         public static MultiComparer<TObject> Ascending<TAttribute>(Func<TObject, TAttribute> accessor)
             where TAttribute : IComparable
         {
-            if (accessor == null) throw new ArgumentNullException("accessor");
+            if (accessor == null) throw new ArgumentNullException(nameof(accessor));
 
             return new MultiComparer<TObject>(BuildAscendingComparer(accessor));
         }
@@ -27,7 +27,7 @@ namespace Dragablz.Core
         public static MultiComparer<TObject> Descending<TAttribute>(Func<TObject, TAttribute> accessor)
             where TAttribute : IComparable
         {
-            if (accessor == null) throw new ArgumentNullException("accessor");
+            if (accessor == null) throw new ArgumentNullException(nameof(accessor));
 
             return new MultiComparer<TObject>(BuildDescendingComparer(accessor));
         }
@@ -35,7 +35,7 @@ namespace Dragablz.Core
         public MultiComparer<TObject> ThenAscending<TAttribute>(Func<TObject, TAttribute> accessor)
             where TAttribute : IComparable
         {
-            if (accessor == null) throw new ArgumentNullException("accessor");
+            if (accessor == null) throw new ArgumentNullException(nameof(accessor));
 
             _attributeComparers.Add(BuildAscendingComparer(accessor));
 
@@ -45,14 +45,14 @@ namespace Dragablz.Core
         public MultiComparer<TObject> ThenDescending<TAttribute>(Func<TObject, TAttribute> accessor)
             where TAttribute : IComparable
         {
-            if (accessor == null) throw new ArgumentNullException("accessor");
+            if (accessor == null) throw new ArgumentNullException(nameof(accessor));
 
             _attributeComparers.Add(BuildDescendingComparer(accessor));
 
             return this;
         }
 
-        public int Compare(TObject x, TObject y)
+        public int Compare(TObject? x, TObject? y)
         {
             var nonEqual = _attributeComparers.Select(c => new { result = c.Compare(x, y) }).FirstOrDefault(a => a.result != 0);
 
@@ -63,7 +63,7 @@ namespace Dragablz.Core
              where TAttribute : IComparable
         {
             //TODO handle ref types better
-            return new FuncComparer<TObject>((x, y) => accessor(x).CompareTo(accessor(y)));
+            return new FuncComparer<TObject>((x, y) => accessor(x!).CompareTo(accessor(y!)));
 
         }
 
@@ -71,7 +71,7 @@ namespace Dragablz.Core
             where TAttribute : IComparable
         {
             //TODO handle ref types better
-            return new FuncComparer<TObject>((x, y) => accessor(y).CompareTo(accessor(x)));
+            return new FuncComparer<TObject>((x, y) => accessor(y!).CompareTo(accessor(x!)));
         }
     }
 }

@@ -5,25 +5,16 @@ namespace Dragablz
 {
     public class LocationChangedEventArgs : EventArgs
     {
-        private readonly object _item;
-        private readonly Point _location;
-
         public LocationChangedEventArgs(object item, Point location)
         {
-            if (item == null) throw new ArgumentNullException("item");
+            if (item == null) throw new ArgumentNullException(nameof(item));
             
-            _item = item;
-            _location = location;
+            Item = item;
+            Location = location;
         }
 
-        public object Item
-        {
-            get { return _item; }
-        }
+        public object Item { get; }
 
-        public Point Location
-        {
-            get { return _location; }
-        }
+        public Point Location { get; }
     }
 }

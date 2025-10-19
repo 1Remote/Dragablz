@@ -30,7 +30,7 @@ namespace Dragablz.Dockablz
 
         public void MarkFound(Branch branch, bool isSecondLeaf)
         {
-            if (branch == null) throw new ArgumentNullException("branch");
+            if (branch == null) throw new ArgumentNullException(nameof(branch));
             if (IsFound)
                 throw new InvalidOperationException("Already found.");
 

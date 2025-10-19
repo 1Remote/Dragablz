@@ -40,7 +40,7 @@ namespace Dragablz
                     _canvasDependencyProperty = Canvas.TopProperty;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("orientation");
+                    throw new ArgumentOutOfRangeException(nameof(orientation));
             }
         }
 
@@ -48,38 +48,21 @@ namespace Dragablz
 
         private class LocationInfo
         {
-            private readonly DragablzItem _item;
-            private readonly double _start;
-            private readonly double _mid;
-            private readonly double _end;
-
             public LocationInfo(DragablzItem item, double start, double mid, double end)
             {
-                _item = item;
-                _start = start;
-                _mid = mid;
-                _end = end;
+                Item = item;
+                Start = start;
+                Mid = mid;
+                End = end;
             }
 
-            public double Start
-            {
-                get { return _start; }
-            }
+            public double Start { get; }
 
-            public double Mid
-            {
-                get { return _mid; }
-            }
+            public double Mid { get; }
 
-            public double End
-            {
-                get { return _end; }
-            }
+            public double End { get; }
 
-            public DragablzItem Item
-            {
-                get { return _item; }
-            }
+            public DragablzItem Item { get; }
         }
 
         #endregion
@@ -140,8 +123,8 @@ namespace Dragablz
         public virtual void OrganiseOnDragStarted(DragablzItemsControl requestor, Size measureBounds,
             IEnumerable<DragablzItem> siblingItems, DragablzItem dragItem)
         {
-            if (siblingItems == null) throw new ArgumentNullException("siblingItems");
-            if (dragItem == null) throw new ArgumentNullException("dragItem");
+            if (siblingItems == null) throw new ArgumentNullException(nameof(siblingItems));
+            if (dragItem == null) throw new ArgumentNullException(nameof(dragItem));
 
             _siblingItemLocationOnDragStart = siblingItems.Select(GetLocationInfo).ToDictionary(loc => loc.Item);
         }
@@ -149,8 +132,8 @@ namespace Dragablz
         public virtual void OrganiseOnDrag(DragablzItemsControl requestor, Size measureBounds,
             IEnumerable<DragablzItem> siblingItems, DragablzItem dragItem)
         {
-            if (siblingItems == null) throw new ArgumentNullException("siblingItems");
-            if (dragItem == null) throw new ArgumentNullException("dragItem");
+            if (siblingItems == null) throw new ArgumentNullException(nameof(siblingItems));
+            if (dragItem == null) throw new ArgumentNullException(nameof(dragItem));
 
             var currentLocations = siblingItems
                 .Select(GetLocationInfo)
@@ -175,7 +158,7 @@ namespace Dragablz
         public virtual void OrganiseOnDragCompleted(DragablzItemsControl requestor, Size measureBounds,
             IEnumerable<DragablzItem> siblingItems, DragablzItem dragItem)
         {
-            if (siblingItems == null) throw new ArgumentNullException("siblingItems");
+            if (siblingItems == null) throw new ArgumentNullException(nameof(siblingItems));
             var currentLocations = siblingItems
                 .Select(GetLocationInfo)
                 .Union(new[] { GetLocationInfo(dragItem) })
@@ -216,7 +199,7 @@ namespace Dragablz
 
         public virtual Size Measure(DragablzItemsControl requestor, Size availableSize, IEnumerable<DragablzItem> items)
         {
-            if (items == null) throw new ArgumentNullException("items");
+            if (items == null) throw new ArgumentNullException(nameof(items));
 
             var size = new Size(double.PositiveInfinity, double.PositiveInfinity);
 
@@ -250,7 +233,7 @@ namespace Dragablz
 
         public virtual IEnumerable<DragablzItem> Sort(IEnumerable<DragablzItem> items)
         {
-            if (items == null) throw new ArgumentNullException("items");
+            if (items == null) throw new ArgumentNullException(nameof(items));
 
             return items.OrderBy(i => GetLocationInfo(i).Start);
         }

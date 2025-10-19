@@ -70,7 +70,7 @@ namespace Dragablz.Core
         /// <returns></returns>
         public static IEnumerable<DependencyObject> VisualTreeAncestory(this DependencyObject dependencyObject)
         {
-            if (dependencyObject == null) throw new ArgumentNullException("dependencyObject");
+            if (dependencyObject == null) throw new ArgumentNullException(nameof(dependencyObject));
 
             while (dependencyObject != null)
             {
@@ -86,7 +86,7 @@ namespace Dragablz.Core
         /// <returns></returns>
         public static IEnumerable<DependencyObject> LogicalTreeAncestory(this DependencyObject dependencyObject)
         {
-            if (dependencyObject == null) throw new ArgumentNullException("dependencyObject");
+            if (dependencyObject == null) throw new ArgumentNullException(nameof(dependencyObject));
 
             while (dependencyObject != null)
             {

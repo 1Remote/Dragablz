@@ -15,7 +15,7 @@ namespace Dragablz.Referenceless
         public static IDisposable Create(Action dispose)
         {
             if (dispose == null)
-                throw new ArgumentNullException("dispose");
+                throw new ArgumentNullException(nameof(dispose));
             else
                 return (IDisposable)new AnonymousDisposable(dispose);
         }

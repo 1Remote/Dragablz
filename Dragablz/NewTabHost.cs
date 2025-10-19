@@ -10,8 +10,8 @@ namespace Dragablz
 
         public NewTabHost(TElement container, TabablzControl tabablzControl)
         {
-            if (container == null) throw new ArgumentNullException("container");
-            if (tabablzControl == null) throw new ArgumentNullException("tabablzControl");
+            if (container == null) throw new ArgumentNullException(nameof(container));
+            if (tabablzControl == null) throw new ArgumentNullException(nameof(tabablzControl));
 
             _container = container;
             _tabablzControl = tabablzControl;

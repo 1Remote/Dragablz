@@ -220,7 +220,7 @@ namespace Dragablz
         /// <param name="moveItemRequest"></param>
         public void MoveItem(MoveItemRequest moveItemRequest)
         {
-            if (moveItemRequest == null) throw new ArgumentNullException("moveItemRequest");
+            if (moveItemRequest == null) throw new ArgumentNullException(nameof(moveItemRequest));
 
             if (ItemsOrganiser == null) return;
 
