@@ -774,7 +774,7 @@ namespace Dragablz.Dockablz
                 dragablzItem.SetCurrentValue(DragablzItem.YProperty, _floatingItems.ActualHeight / 2 - newHeight / 2);
                 dragablzItem.SetCurrentValue(WidthProperty, newWidth);
                 dragablzItem.SetCurrentValue(HeightProperty, newHeight);
-            }), DispatcherPriority.Loaded);
+            }, DispatcherPriority.Loaded);
 
             _floatTransfer = null;
         }
