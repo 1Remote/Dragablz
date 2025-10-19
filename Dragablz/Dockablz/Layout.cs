@@ -112,7 +112,7 @@ namespace Dragablz.Dockablz
         /// <returns></returns>
         public static LocationReport Find(TabablzControl tabablzControl)
         {
-            if (tabablzControl == null) throw new ArgumentNullException("tabablzControl");
+            if (tabablzControl == null) throw new ArgumentNullException(nameof(tabablzControl));
 
             return Finder.Find(tabablzControl);
         }

@@ -13,9 +13,9 @@ namespace Dragablz
 
         public ItemActionCallbackArgs(Window window, TOwner owner, DragablzItem dragablzItem)
         {
-            if (window == null) throw new ArgumentNullException("window");
-            if (owner == null) throw new ArgumentNullException("owner");
-            if (dragablzItem == null) throw new ArgumentNullException("dragablzItem");
+            if (window == null) throw new ArgumentNullException(nameof(window));
+            if (owner == null) throw new ArgumentNullException(nameof(owner));
+            if (dragablzItem == null) throw new ArgumentNullException(nameof(dragablzItem));
 
             _window = window;
             _owner = owner;

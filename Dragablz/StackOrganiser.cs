@@ -40,7 +40,7 @@ namespace Dragablz
                     _canvasDependencyProperty = Canvas.TopProperty;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("orientation");
+                    throw new ArgumentOutOfRangeException(nameof(orientation));
             }
         }
 
@@ -140,8 +140,8 @@ namespace Dragablz
         public virtual void OrganiseOnDragStarted(DragablzItemsControl requestor, Size measureBounds,
             IEnumerable<DragablzItem> siblingItems, DragablzItem dragItem)
         {
-            if (siblingItems == null) throw new ArgumentNullException("siblingItems");
-            if (dragItem == null) throw new ArgumentNullException("dragItem");
+            if (siblingItems == null) throw new ArgumentNullException(nameof(siblingItems));
+            if (dragItem == null) throw new ArgumentNullException(nameof(dragItem));
 
             _siblingItemLocationOnDragStart = siblingItems.Select(GetLocationInfo).ToDictionary(loc => loc.Item);
         }
@@ -149,8 +149,8 @@ namespace Dragablz
         public virtual void OrganiseOnDrag(DragablzItemsControl requestor, Size measureBounds,
             IEnumerable<DragablzItem> siblingItems, DragablzItem dragItem)
         {
-            if (siblingItems == null) throw new ArgumentNullException("siblingItems");
-            if (dragItem == null) throw new ArgumentNullException("dragItem");
+            if (siblingItems == null) throw new ArgumentNullException(nameof(siblingItems));
+            if (dragItem == null) throw new ArgumentNullException(nameof(dragItem));
 
             var currentLocations = siblingItems
                 .Select(GetLocationInfo)
@@ -175,7 +175,7 @@ namespace Dragablz
         public virtual void OrganiseOnDragCompleted(DragablzItemsControl requestor, Size measureBounds,
             IEnumerable<DragablzItem> siblingItems, DragablzItem dragItem)
         {
-            if (siblingItems == null) throw new ArgumentNullException("siblingItems");
+            if (siblingItems == null) throw new ArgumentNullException(nameof(siblingItems));
             var currentLocations = siblingItems
                 .Select(GetLocationInfo)
                 .Union(new[] { GetLocationInfo(dragItem) })
@@ -216,7 +216,7 @@ namespace Dragablz
 
         public virtual Size Measure(DragablzItemsControl requestor, Size availableSize, IEnumerable<DragablzItem> items)
         {
-            if (items == null) throw new ArgumentNullException("items");
+            if (items == null) throw new ArgumentNullException(nameof(items));
 
             var size = new Size(double.PositiveInfinity, double.PositiveInfinity);
 
@@ -250,7 +250,7 @@ namespace Dragablz
 
         public virtual IEnumerable<DragablzItem> Sort(IEnumerable<DragablzItem> items)
         {
-            if (items == null) throw new ArgumentNullException("items");
+            if (items == null) throw new ArgumentNullException(nameof(items));
 
             return items.OrderBy(i => GetLocationInfo(i).Start);
         }

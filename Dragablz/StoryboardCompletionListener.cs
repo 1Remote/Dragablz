@@ -12,8 +12,8 @@ namespace Dragablz
 
         public StoryboardCompletionListener(Storyboard storyboard, Action<Storyboard> continuation)
         {
-            if (storyboard == null) throw new ArgumentNullException("storyboard");
-            if (continuation == null) throw new ArgumentNullException("continuation");
+            if (storyboard == null) throw new ArgumentNullException(nameof(storyboard));
+            if (continuation == null) throw new ArgumentNullException(nameof(continuation));
 
             _storyboard = storyboard;
             _continuation = continuation;

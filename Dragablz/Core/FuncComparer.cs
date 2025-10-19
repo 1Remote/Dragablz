@@ -9,12 +9,12 @@ namespace Dragablz.Core
 
         public FuncComparer(Func<TObject, TObject, int> comparer)
         {
-            _comparer = comparer ?? throw new ArgumentNullException("comparer");
+            _comparer = comparer ?? throw new ArgumentNullException(nameof(comparer));
         }
 
-        public int Compare(TObject x, TObject y)
+        public int Compare(TObject? x, TObject? y)
         {
-            return _comparer(x, y);
+            return _comparer(x!, y!);
         }
     }
 }

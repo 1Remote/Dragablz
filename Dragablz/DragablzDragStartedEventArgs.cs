@@ -13,7 +13,7 @@ namespace Dragablz
         public DragablzDragStartedEventArgs(DragablzItem dragablzItem, DragStartedEventArgs dragStartedEventArgs)
             : base(dragablzItem)
         {
-            if (dragStartedEventArgs == null) throw new ArgumentNullException("dragStartedEventArgs");
+            if (dragStartedEventArgs == null) throw new ArgumentNullException(nameof(dragStartedEventArgs));
 
             _dragStartedEventArgs = dragStartedEventArgs;
         }

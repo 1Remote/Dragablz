@@ -13,8 +13,8 @@ namespace Dragablz
 
         public DragablzDragCompletedEventArgs(DragablzItem dragablzItem, DragCompletedEventArgs dragCompletedEventArgs)
         {
-            if (dragablzItem == null) throw new ArgumentNullException("dragablzItem");
-            if (dragCompletedEventArgs == null) throw new ArgumentNullException("dragCompletedEventArgs");
+            if (dragablzItem == null) throw new ArgumentNullException(nameof(dragablzItem));
+            if (dragCompletedEventArgs == null) throw new ArgumentNullException(nameof(dragCompletedEventArgs));
             
             _dragablzItem = dragablzItem;
             _dragCompletedEventArgs = dragCompletedEventArgs;
@@ -23,8 +23,8 @@ namespace Dragablz
         public DragablzDragCompletedEventArgs(RoutedEvent routedEvent, DragablzItem dragablzItem, DragCompletedEventArgs dragCompletedEventArgs)
             : base(routedEvent)
         {
-            if (dragablzItem == null) throw new ArgumentNullException("dragablzItem");
-            if (dragCompletedEventArgs == null) throw new ArgumentNullException("dragCompletedEventArgs");
+            if (dragablzItem == null) throw new ArgumentNullException(nameof(dragablzItem));
+            if (dragCompletedEventArgs == null) throw new ArgumentNullException(nameof(dragCompletedEventArgs));
 
             _dragablzItem = dragablzItem;            
             _dragCompletedEventArgs = dragCompletedEventArgs;
@@ -33,8 +33,8 @@ namespace Dragablz
         public DragablzDragCompletedEventArgs(RoutedEvent routedEvent, object source, DragablzItem dragablzItem, DragCompletedEventArgs dragCompletedEventArgs)
             : base(routedEvent, source)
         {
-            if (dragablzItem == null) throw new ArgumentNullException("dragablzItem");
-            if (dragCompletedEventArgs == null) throw new ArgumentNullException("dragCompletedEventArgs");
+            if (dragablzItem == null) throw new ArgumentNullException(nameof(dragablzItem));
+            if (dragCompletedEventArgs == null) throw new ArgumentNullException(nameof(dragCompletedEventArgs));
 
             _dragablzItem = dragablzItem;
             _dragCompletedEventArgs = dragCompletedEventArgs;

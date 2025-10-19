@@ -20,7 +20,7 @@ namespace Dragablz.Dockablz
 
         public FloatingItemSnapShot(object content, Rect location, int zIndex, WindowState state)
         {
-            if (content == null) throw new ArgumentNullException("content");
+            if (content == null) throw new ArgumentNullException(nameof(content));
 
             _content = content;
             _location = location;
@@ -30,7 +30,7 @@ namespace Dragablz.Dockablz
 
         public static FloatingItemSnapShot Take(DragablzItem dragablzItem)
         {
-            if (dragablzItem == null) throw new ArgumentNullException("dragablzItem");
+            if (dragablzItem == null) throw new ArgumentNullException(nameof(dragablzItem));
 
             return new FloatingItemSnapShot(
                 dragablzItem.Content, 
@@ -41,7 +41,7 @@ namespace Dragablz.Dockablz
 
         public void Apply(DragablzItem dragablzItem)
         {
-            if (dragablzItem == null) throw new ArgumentNullException("dragablzItem");
+            if (dragablzItem == null) throw new ArgumentNullException(nameof(dragablzItem));
 
             dragablzItem.SetCurrentValue(DragablzItem.XProperty, Location.Left);
             dragablzItem.SetCurrentValue(DragablzItem.YProperty, Location.Top);

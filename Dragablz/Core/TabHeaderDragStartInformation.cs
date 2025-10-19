@@ -14,7 +14,7 @@ namespace Dragablz.Core
             DragablzItem dragItem,
             double dragablzItemsControlHorizontalOffset, double dragablzItemControlVerticalOffset, double dragablzItemHorizontalOffset, double dragablzItemVerticalOffset)
         {
-            if (dragItem == null) throw new ArgumentNullException("dragItem");
+            if (dragItem == null) throw new ArgumentNullException(nameof(dragItem));
 
             _dragItem = dragItem;
             _dragablzItemsControlHorizontalOffset = dragablzItemsControlHorizontalOffset;

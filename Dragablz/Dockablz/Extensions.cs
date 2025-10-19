@@ -12,7 +12,7 @@ namespace Dragablz.Dockablz
         /// <returns></returns>
         public static LayoutAccessor Query(this Layout layout)
         {
-            if (layout == null) throw new ArgumentNullException("layout");
+            if (layout == null) throw new ArgumentNullException(nameof(layout));
 
             return new LayoutAccessor(layout);
         }
@@ -34,7 +34,7 @@ namespace Dragablz.Dockablz
             Action<TContext, TabablzControl>? tabablzControlVisitor = null,
             Action<TContext, object>? contentVisitor = null)
         {
-            if (layoutAccessor == null) throw new ArgumentNullException("layoutAccessor");
+            if (layoutAccessor == null) throw new ArgumentNullException(nameof(layoutAccessor));
 
             layoutAccessor.Visit(
                 WrapVisitor(context, branchVisitor),
@@ -64,7 +64,7 @@ namespace Dragablz.Dockablz
             Action<TContext, TabablzControl>? tabablzControlVisitor = null,
             Action<TContext, object>? contentVisitor = null)
         {
-            if (branchAccessor == null) throw new ArgumentNullException("branchAccessor");
+            if (branchAccessor == null) throw new ArgumentNullException(nameof(branchAccessor));
 
             branchAccessor.Visit(
                 childItem,
