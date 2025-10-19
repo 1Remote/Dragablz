@@ -51,7 +51,7 @@ internal class MultiComparer<TObject> : IComparer<TObject>
         return this;
     }
 
-    public int Compare(TObject x, TObject y)
+    public int Compare(TObject? x, TObject? y)
     {
         var nonEqual = _attributeComparers.Select(c => new { result = c.Compare(x, y) }).FirstOrDefault(a => a.result != 0);
 

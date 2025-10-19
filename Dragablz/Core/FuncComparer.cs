@@ -11,8 +11,8 @@ internal class FuncComparer<TObject> : IComparer<TObject>
         _comparer = comparer ?? throw new ArgumentNullException("comparer");
     }
 
-    public int Compare(TObject x, TObject y)
+    public int Compare(TObject? x, TObject? y)
     {
-        return _comparer(x, y);
+        return _comparer(x!, y!);
     }
 }
