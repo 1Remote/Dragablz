@@ -76,6 +76,7 @@ namespace Dragablz.Core
         /// </summary>
         public static Point ToWpf(this Point pixelPoint, Visual visual)
         {
+            if (visual == null) return ToWpf(pixelPoint);
             var source = PresentationSource.FromVisual(visual);
             if (source?.CompositionTarget == null)
                 return ToWpf(pixelPoint);
