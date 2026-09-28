@@ -1084,6 +1084,9 @@ namespace Dragablz
                     var bottomRight =
                         tc._dragablzItemsControl.PointToScreen(new Point(tc._dragablzItemsControl.ActualWidth,
                             tc._dragablzItemsControl.ActualHeight));
+                    var reentryGrace = tc.InterTabController?.ReentryGrace ?? 0;
+                    topLeft.Offset(0, -reentryGrace * 0.25);
+                    bottomRight.Offset(0, reentryGrace);
 
                     return new { tc, topLeft, bottomRight };
                 });
