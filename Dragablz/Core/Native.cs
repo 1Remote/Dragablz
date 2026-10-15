@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
+using System.Windows.Media;
 
 namespace Dragablz.Core
 {
@@ -78,6 +79,20 @@ namespace Dragablz.Core
             var wpfPoint = new Point(physicalUnitSize * pixelPoint.X, physicalUnitSize * pixelPoint.Y);
 
             return wpfPoint;
+        }
+
+        /// <summary>
+        /// Converts a physical-pixel point to the DIP coordinate system of the given visual's window,
+        /// using that window's actual DPI (correct under Per-Monitor V2; identical to the parameterless
+        /// overload under System DPI Aware). Falls back to the primary-screen DPI if no source is available.
+        /// </summary>
+        public static Point ToWpf(this Point pixelPoint, Visual visual)
+        {
+            if (visual == null) return ToWpf(pixelPoint);
+            var source = PresentationSource.FromVisual(visual);
+            if (source?.CompositionTarget == null)
+                return ToWpf(pixelPoint);
+            return source.CompositionTarget.TransformFromDevice.Transform(pixelPoint);
         }
 
         public static IEnumerable<Window> SortWindowsTopToBottom(IEnumerable<Window> windows)

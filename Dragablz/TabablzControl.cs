@@ -1040,7 +1040,7 @@ namespace Dragablz
 
             if (_interTabTransfer != null)
             {
-                var cursorPos = Native.GetCursorPos().ToWpf();
+                var cursorPos = Native.GetCursorPos().ToWpf(myWindow);
                 if (_interTabTransfer.BreachOrientation == Orientation.Vertical)
                 {
                     var vector = cursorPos - _interTabTransfer.DragStartWindowOffset;
@@ -1050,7 +1050,7 @@ namespace Dragablz
                 else
                 {
                     var offset = e.DragablzItem.TranslatePoint(_interTabTransfer.OriginatorContainer.MouseAtDragStart, myWindow);
-                    var borderVector = myWindow.PointToScreen(new Point()).ToWpf() - new Point(myWindow.Left, myWindow.Top);
+                    var borderVector = myWindow.PointToScreen(new Point()).ToWpf(myWindow) - new Point(myWindow.Left, myWindow.Top);
                     offset.Offset(borderVector.X, borderVector.Y);
                     myWindow.Left = cursorPos.X - offset.X;
                     myWindow.Top = cursorPos.Y - offset.Y;
@@ -1095,6 +1095,9 @@ namespace Dragablz
                     var bottomRight =
                         tc._dragablzItemsControl.PointToScreen(new Point(tc._dragablzItemsControl.ActualWidth,
                             tc._dragablzItemsControl.ActualHeight));
+                    var reentryGrace = tc.InterTabController?.ReentryGrace ?? 0;
+                    topLeft.Offset(0, -reentryGrace * 0.25);
+                    bottomRight.Offset(0, reentryGrace);
 
                     return new { tc, topLeft, bottomRight };
                 });
@@ -1263,7 +1266,7 @@ namespace Dragablz
 
             if (myWindow.WindowState == WindowState.Maximized)
             {
-                var desktopMousePosition = Native.GetCursorPos().ToWpf();
+                var desktopMousePosition = Native.GetCursorPos().ToWpf(myWindow);
                 newTabHost.Container.Left = desktopMousePosition.X - dragStartWindowOffset.X;
                 newTabHost.Container.Top = desktopMousePosition.Y - dragStartWindowOffset.Y;
             }
@@ -1355,7 +1358,7 @@ namespace Dragablz
             }
 
             dragStartWindowOffset.Offset(dragablzItem.MouseAtDragStart.X, dragablzItem.MouseAtDragStart.Y);
-            var borderVector = currentWindow.PointToScreen(new Point()).ToWpf() - new Point(currentWindow.GetActualLeft(), currentWindow.GetActualTop());
+            var borderVector = currentWindow.PointToScreen(new Point()).ToWpf(currentWindow) - new Point(currentWindow.GetActualLeft(), currentWindow.GetActualTop());
             dragStartWindowOffset.Offset(borderVector.X, borderVector.Y);
             return dragStartWindowOffset;
         }

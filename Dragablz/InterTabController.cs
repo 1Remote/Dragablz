@@ -29,6 +29,21 @@ namespace Dragablz
             set { SetValue(VerticalPopoutGraceProperty, value); }
         }
 
+        public static readonly DependencyProperty ReentryGraceProperty = DependencyProperty.Register(
+            "ReentryGrace", typeof (double), typeof (InterTabController), new PropertyMetadata(0.0));
+
+        /// <summary>
+        /// Widen the rectangle used to detect dragging a solitary tab back into another window's
+        /// header: the bottom edge is lowered by this value (in DIP) and the top edge is raised by
+        /// a quarter of it. Default 0 keeps the exact header rectangle. Read from the *target*
+        /// window's controller.
+        /// </summary>
+        public double ReentryGrace
+        {
+            get { return (double) GetValue(ReentryGraceProperty); }
+            set { SetValue(ReentryGraceProperty, value); }
+        }
+
         public static readonly DependencyProperty MoveWindowWithSolitaryTabsProperty = DependencyProperty.Register(
             "MoveWindowWithSolitaryTabs", typeof (bool), typeof (InterTabController), new PropertyMetadata(true));
 
