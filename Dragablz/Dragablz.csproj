@@ -16,6 +16,7 @@
 		<RepositoryType>git</RepositoryType>
 		<Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
+        <DebugType>embedded</DebugType>
     </PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
